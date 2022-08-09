@@ -3,6 +3,8 @@ Transform Citations from README or Docs into .cff files
 
 **Citation Examples using APA:**
 
+Normal text that is not a citation or reference
+
 github. (2020). GitHub. Retrieved from https://github.com/
 
 > Tyson, A. L., Vélez-Fort, M., Rousseau, C. V., Cossell, L., Tsitoura, C., Lenzi, S. C., Obenhaus, H. A., Claudi, F., Branco, T., Margrie, T. W. (2022). Accurate determination of marker location within whole-brain microscopy images. Scientific Reports, 12, 867 doi.org/10.1038/s41598-021-04676-9
@@ -10,11 +12,11 @@ github. (2020). GitHub. Retrieved from https://github.com/
 
 **Citation Examples using BiBTex:**
 ```
-@misc{github,
-  author={github},
-  title={GitHub},
-  year={2020},
-  url={https://github.com/},
+@article{bragantini2020grabber,
+  title={Grabber: A Tool to Improve Convergence in Interactive Image Segmentation,
+  author={Bragantini, Jord{\~a}o and Bruno Moura, Falc{\~a}o, Alexandre Xavier and Cappabianco, F{\'a}bio AM,
+  journal={Pattern Recognition Letters},
+  year={2020}
 }
 ```
 
@@ -31,3 +33,6 @@ github. (2020). GitHub. Retrieved from https://github.com/
 	journal = {bioRxiv}
 }
 ```
+
+
+```snippet that is not a reference or citation ```
