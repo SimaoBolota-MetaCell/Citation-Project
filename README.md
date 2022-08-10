@@ -13,8 +13,8 @@ github. (2020). GitHub. Retrieved from https://github.com/
 **Citation Examples using BiBTex:**
 ```
 @article{bragantini2020grabber,
-  title={Grabber: A Tool to Improve Convergence in Interactive Image Segmentation,
-  author={Bragantini, Jord{\~a}o and Bruno Moura, Falc{\~a}o, Alexandre Xavier and Cappabianco, F{\'a}bio AM,
+  title={Grabber: A Tool to Improve Convergence in Interactive Image Segmentation},
+  author={Bragantini, Jord{\~a}o and Bruno Moura, Falc{\~a}o, Alexandre Xavier and Cappabianco, F{\'a}bio AM},
   journal={Pattern Recognition Letters},
   year={2020}
 }
