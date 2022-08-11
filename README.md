@@ -11,7 +11,7 @@ github. (2020). GitHub. Retrieved from https://github.com/
 
 
 **Citation Examples using BiBTex:**
-```
+```bibtex
 @article{bragantini2020grabber,
   title={Grabber: A Tool to Improve Convergence in Interactive Image Segmentation},
   author={Bragantini, Jord{\~a}o and Bruno Moura, Falc{\~a}o, Alexandre Xavier and Cappabianco, F{\'a}bio AM},
@@ -20,7 +20,7 @@ github. (2020). GitHub. Retrieved from https://github.com/
 }
 ```
 
-```
+```bibtex
 @article {Conrad2022.03.17.484806,
 	author = {Conrad, Ryan and Narayan, Kedar},
 	title = {Instance segmentation of mitochondria in electron microscopy images with a generalist deep learning model},
@@ -35,4 +35,4 @@ github. (2020). GitHub. Retrieved from https://github.com/
 ```
 
 
-```snippet that is not a reference or citation ```
+``` snippet that is not a reference or citation ```
