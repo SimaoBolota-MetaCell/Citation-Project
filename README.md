@@ -5,7 +5,6 @@ Transform Citations from README or Docs into .cff files
 
 Normal text that is not a citation or reference
 
-github. (2020). GitHub. Retrieved from https://github.com/
 
 > Tyson, A. L., Vélez-Fort, M., Rousseau, C. V., Cossell, L., Tsitoura, C., Lenzi, S. C., Obenhaus, H. A., Claudi, F., Branco, T., Margrie, T. W. (2022). Accurate determination of marker location within whole-brain microscopy images. Scientific Reports, 12, 867 doi.org/10.1038/s41598-021-04676-9
 
@@ -21,6 +20,8 @@ github. (2020). GitHub. Retrieved from https://github.com/
 >	 eprint = {https://www.biorxiv.org/content/early/2021/11/25/2021.11.25.469984.full.pdf},  
 >	 journal = {bioRxiv}  
 >}  
+
+github. (2020). GitHub. Retrieved from https://github.com/
 
 
 **Citation Examples using BiBTex:**
