@@ -38,3 +38,5 @@ Having the citations parsed into its subcomponents, **create the .CFF file** (Py
 Using a GitHub plugin or integration, **create a flow to submit a Pull request of the automatically generated .CFF.** The author can then review/edit/approve the citation and eventually merge if agreed.
 This way the .CFF becomes part of the repo.
 
+This is done to ensure that we are not direcly pushing a file into someone else's repo. Giving room for the Repo owner to add more infomration or correct information if needed and to double check the output of this Citation process.
+
