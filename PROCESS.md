@@ -33,7 +33,7 @@ After having all the correct citations, **parse them into its subcomponents** (w
 - publisher
 - ...
 
-Having the citations parsed into its subcomponents, **create the .CFF file **(PyYAML or PyCFF) storing the subcomponents into the corresponding CFF keys.
+Having the citations parsed into its subcomponents, **create the .CFF file** (PyYAML or PyCFF) storing the subcomponents into the corresponding CFF keys.
 
 Using a GitHub plugin or integration, **create a flow to submit a Pull request of the automatically generated .CFF.** The author can then review/edit/approve the citation and eventually merge if agreed.
 This way the .CFF becomes part of the repo.
