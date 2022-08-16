@@ -1,15 +1,11 @@
-- authors:
-  - Conrad, Ryan and Narayan, Kedar
-- cff-version: 1.2.0
-- message: If you use this plugin, please cite it using these metadata
-- title:
-  - Instance segmentation of mitochondria in electron microscopy images with a generalist
-    deep learning model
-- identifiers:
-  - description:
-    - Cold Spring Harbor Laboratory
-  - type: doi
-  - value:
-    - 10.1101/2022.03.17.484806
-- date-released:
-  - '2022'
+cff-version: 1.2.0
+message: If you use this plugin, please cite it using these metadata
+authors:
+- family-names: Conrad, Ryan and Narayan, Kedar
+title: Instance segmentation of mitochondria in electron microscopy images with a
+  generalist deep learning model
+identifiers:
+- description: Cold Spring Harbor Laboratory
+- type: doi
+- value: 10.1101/2022.03.17.484806
+date-released: '2022'
