@@ -21,7 +21,8 @@ At the moment, eventhough the data displayed is the correct one, there are text 
 For this reason, the next step is to **create a pattern using regular expressions, so only the correct formatted citations and information are displayed**
 - BibTex: <img width="602" alt="Screenshot at Aug 15 13-39-40" src="https://user-images.githubusercontent.com/99416933/184636584-b664b487-094b-4763-85d6-120b28e796b5.png">
 
-- APA: work in progress, I have it identifying the pattern except for the authors since the number of authors can vary <img width="581" alt="Screenshot at Aug 15 13-49-57" src="https://user-images.githubusercontent.com/99416933/184638098-f8405aae-58e7-4f99-9e79-92c0934c1793.png">
+- APA: ![Screenshot at Aug 22 16-16-18](https://user-images.githubusercontent.com/99416933/185956927-3c1f8467-0818-4dd3-a9c5-9b160d8bd29e.png)
+
 
 
 After having all the correct citations, **parse them into its subcomponents** (when applicable):
