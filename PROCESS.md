@@ -25,13 +25,17 @@ For this reason, the next step is to **create a pattern using regular expression
 
 
 After having all the correct citations, **parse them into its subcomponents** (when applicable):
-- author
-- doi
-- year
-- journal
-- url
-- publisher
-- ...
+- BibTex (author, doi, year, journal, url, publisher)
+  - example 1:![Screenshot at Aug 22 16-01-49](https://user-images.githubusercontent.com/99416933/185954227-b0786bec-ae29-4072-827f-84371f6e2b2c.png)
+
+  - example 2:![Screenshot at Aug 22 16-03-23](https://user-images.githubusercontent.com/99416933/185954245-17ae7ba9-8852-42ec-ae42-327ec1117498.png)
+
+- APA (author, doi, year, journal, url, publisher)
+  - example 1:
+  - example 2:
+
+
+TODO:
 
 Having the citations parsed into its subcomponents, **create the .CFF file** (PyYAML or PyCFF) storing the subcomponents into the corresponding CFF keys https://elib.dlr.de/147385/1/schema-guide.pdf.
 
