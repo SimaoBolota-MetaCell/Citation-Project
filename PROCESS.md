@@ -31,8 +31,8 @@ After having all the correct citations, **parse them into its subcomponents** (w
   - example 2:![Screenshot at Aug 22 16-03-23](https://user-images.githubusercontent.com/99416933/185954245-17ae7ba9-8852-42ec-ae42-327ec1117498.png)
 
 - APA (author, doi, year, journal, url, publisher)
-  - example 1:
-  - example 2:
+  - example :![Screenshot at Aug 22 16-12-56](https://user-images.githubusercontent.com/99416933/185956227-a2034225-e0a0-491c-8cfe-16e69fe6aca0.png)
+
 
 
 TODO:
