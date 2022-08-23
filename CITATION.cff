@@ -6,9 +6,9 @@ authors:
 title: Instance segmentation of mitochondria in electron microscopy images with a
   generalist deep learning model
 references:
-- title: Cold Spring Harbor Laboratory
-  year: '2022'
-  journal: []
+- type: book
+  Cold Spring Harbor Laboratory:
+  - name: publisher
 doi: 10.1101/2022.03.17.484806
 date-released: '2022-01-01'
 identifiers:
