@@ -56,8 +56,7 @@ authors = "(?:[A-Z][A-Za-z'`-]+)" + ", " + "(?:\w\.)"
 year_num = '\(([0-9]{4})\)'
 
 title = '(?:\.)(.*?)(?=\.)'
-journal = '(?:\.)(.*?)(?=doi)'
-doi = '(?:doi)(.*?)(?=,)'
+doi = '(?:doi.org/)(.*?)(?=,)'
 
 all_apa_authors = re.findall(authors, APA_text, flags=re.DOTALL)
 all_apa_authors = ', '.join(all_apa_authors)
@@ -81,13 +80,11 @@ for citation in all_apa_citations:
 
     family_names = re.findall(
         "(?:[A-Z][A-Za-z'`-]+,)", all_apa_authors, flags=re.DOTALL)
-    family_names = ' '.join(map(str, family_names))
-    family_names = family_names.replace(",", "")
+    family_names = [w.replace(',', '') for w in family_names]
 
     given_names = re.findall(
         "(\,\\s[A-Z]\.)", all_apa_authors, flags=re.DOTALL)
-    given_names = ' '.join(map(str, given_names))
-    given_names = given_names.replace(", ", "")
+    given_names = [w.replace(', ', '') for w in given_names]
 
     print('AUTHORS GIVEN NAMES')
     print(given_names)
@@ -97,6 +94,11 @@ for citation in all_apa_citations:
     print('\n')
 
     citation_year = re.findall('(\\s[0-9]{4}\.)', citation, flags=re.DOTALL)
+    citation_year = [w.replace('.', '') for w in citation_year]
+    citation_year = [w.replace(' ', '') for w in citation_year]
+    citation_year = ''.join(map(str, citation_year))
+
+
     print('YEAR')
     print(citation_year)
     print('\n')
@@ -108,7 +110,7 @@ for citation in all_apa_citations:
     print('\n')
 
     citation_title = ' '.join(map(str, citation_title))
-    citation_journal = re.findall(citation_title +'.'+ '(.*?)(?=\.)', citation, flags=re.DOTALL)
+    citation_journal = re.findall(citation_title +'.'+ '(.*?)(?:doi)', APA_text, flags=re.DOTALL)
     print('JOURNAL')
     print(citation_journal)
     print('\n')
@@ -121,38 +123,13 @@ for citation in all_apa_citations:
 
 # USING PYYAML
 
-# title_string = ''.join(map(str, title))
-# publisher_string = ''.join(map(str, publisher))
-# year_string = ''.join(map(str, year))
-# doi_string = ''.join(map(str, doi))
+    dict_file = {'cff-version': '1.2.0',
+                     'message': 'If you use this plugin, please cite it using these metadata',
+                     'authors': [{'family-names': family_names, 'given-names': given_names}],
+                     'title': citation_title,
+                     'references' : [{'year':citation_year, 'journal': citation_journal}],
+                     'doi': citation_doi,
+                     'date-released': citation_year + '-01-01'}
 
-# dict_file = {'cff-version': '1.2.0',
-#              'message': 'If you use this plugin, please cite it using these metadata',
-#              'authors': [{'family-names': family_names}, {'given_names': given_names}],
-#              'title': title_string,
-#              'doi': doi_string,
-#              'date-released': year_string}
-
-# with open(r'./Citation-Project/CITATION.cff', 'w') as file:
-#     documents = yaml.dump(dict_file, file, sort_keys = False)
-
-
-# USING PYCFF - not working
-# text = (
-#             '# YAML 1.2\n'
-#             '---\n'
-#             'cff-version: "1.1.0"\n'
-#             'message: Do cite this\n'
-#             'title: Testing CFF!\n'
-#             'version: 0.0.1\n'
-#             'authors: []\n'
-#             'date-released: 2020-11-15 00:00:00\n')
-
-# cff = pycff.load(text)
-
-
-# NOTES and QUESTIONS
-# - BIBTEX can start with another thing other than @article
-# - APA Citations formatting, change the way the pattern is being recognized
-# - multiple citations, in what key to put the information and how
-# - re-check the order for family names and given names
+    with open(r'./Citation-Project/aCITATION.cff', 'w') as file:
+            documents = yaml.dump(dict_file, file, sort_keys = False)
