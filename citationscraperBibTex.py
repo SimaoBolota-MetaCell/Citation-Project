@@ -4,25 +4,35 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import yaml
-from pycff import pycff
+import git
+import requests
+import json
+
+repo = git.Repo('/Users/simaosa/Desktop/MetaCell/Projects/CZI/Citation project/Citation-Project') 
+origin = repo.remote("origin")  
+
+assert origin.exists()
+origin.fetch()
+
+branch_name = 'Citation-branch14'
+
+new_branch = repo.create_head(branch_name, origin.refs.main)  # replace prod with master/ main/ whatever you named your main branch
+new_branch.checkout()
 
 
 # takes url input and stores HTML of page
-html = requests.get( 'https://github.com/juglab/PlatyMatch/blob/master/README.md').text
+# html = requests.get( 'https://github.com/juglab/PlatyMatch/blob/master/README.md').text
 # html = requests.get( 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/README.md').text
-# html = requests.get(
-#     'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/README2.md').text
-soup = BeautifulSoup(html, 'html5lib')
-# print(soup)  # check if page HTML is correct
+html = requests.get(
+    'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/README2.md').text
 
-paragraphs = soup.find_all("p", {'dir': 'auto'})
-paragraphs = str(paragraphs)
-# print(paragraphs) # check if right elements
+
+soup = BeautifulSoup(html, 'html5lib')
+
 
 snippets = soup.find_all("div", {
                          'class': 'highlight highlight-text-bibtex notranslate position-relative overflow-auto'})
 snippets = str(snippets)
-# print(snippets)
 
 
 class MLStripper(HTMLParser):
@@ -53,7 +63,6 @@ BibTex_text = BibTex_text.replace("]", " }")
 BibTex_text = BibTex_text.replace("{\\~a}", "ã")
 BibTex_text = BibTex_text.replace("{\\'a}", "á")
 BibTex_text = re.sub(' +', ' ', BibTex_text)
-# print(BibTex_text)
 
 bibtex_pattern = '(?<=@)(.*?)(?=\}\s*\})'
 
@@ -77,12 +86,12 @@ if all_bibtex_citations:
            individual_author_string = ' '.join(map(str, individual_author))
 
            family_names = re.findall("(?:[A-Z][A-Za-z'`-]+,)" , individual_author_string, flags=re.DOTALL)
-           family_names = ' '.join(map(str, family_names))
-           family_names = family_names.replace(",", "")
+           family_names = [w.replace(',', '') for w in family_names]
+
 
            given_names =re.findall("(,\\s[A-Z][A-Za-z'`-]+)" , individual_author_string, flags=re.DOTALL)
-           given_names = ' '.join(map(str, given_names))
-           given_names = given_names.replace(", ", "")
+           given_names = [w.replace(', ', '') for w in given_names]
+
 
            print('AUTHORS GIVEN NAMES')
            print(given_names ) 
@@ -137,41 +146,65 @@ if all_bibtex_citations:
 
 # USING PYYAML
 
-        title_string = ''.join(map(str, title))
-        publisher_string = ''.join(map(str, publisher))
-        year_string = ''.join(map(str, year))
-        doi_string = ''.join(map(str, doi))
+        title = ''.join(map(str, title))
+        publisher = ''.join(map(str, publisher))
+        year = ''.join(map(str, year))
+        doi = ''.join(map(str, doi))
 
 
         dict_file = {'cff-version': '1.2.0',
                      'message': 'If you use this plugin, please cite it using these metadata',
-                     'authors': [{'family-names': family_names}, {'given_names': given_names}],
-                     'title': title_string,
-                     'doi': doi_string,
-                     'date-released': year_string}
+                     'authors': [{'family-names': family_names[0], 'given-names': given_names[0]}],
+                     'title': title,
+                     'references' : [{'title': publisher,'year':year, 'journal': journal}],
+                     'doi': doi,
+                     'date-released': year + '-01-01',
+                     'identifiers': [{'type': 'url','value':url, 'description': ''}]}
 
         with open(r'./Citation-Project/CITATION.cff', 'w') as file:
             documents = yaml.dump(dict_file, file, sort_keys = False)
 
 
-# USING PYCFF - not working
-# text = (
-#             '# YAML 1.2\n'
-#             '---\n'
-#             'cff-version: "1.1.0"\n'
-#             'message: Do cite this\n'
-#             'title: Testing CFF!\n'
-#             'version: 0.0.1\n'
-#             'authors: []\n'
-#             'date-released: 2020-11-15 00:00:00\n')
 
-# cff = pycff.load(text)
+
+repo.index.add('CITATION.cff') 
+repo.index.commit("BibTex Citation Added")
+repo.git.push("--set-upstream", origin, repo.head.ref)
 
 
 
+# def create_pull_request(project_name, repo_name, title, description, head_branch, base_branch, git_token):
+#     """Creates the pull request for the head_branch against the base_branch"""
+#     git_pulls_api = "https://github.com/api/v3/repos/{0}/{1}/pulls".format(
+#         project_name,
+#         repo_name)
+#     headers = {
+#         "Authorization": "token {0}".format(git_token),
+#         "Content-Type": "application/json"}
 
-# NOTES and QUESTIONS
-# - BIBTEX can start with another thing other than @article
-# - APA Citations formatting, change the way the pattern is being recognized
-# - multiple citations, in what key to put the information and how
-# - re-check the order for family names and given names
+#     payload = {
+#         "title": title,
+#         "body": description,
+#         "head": head_branch,
+#         "base": base_branch,
+#     }
+
+#     r = requests.post(
+#         git_pulls_api,
+#         headers=headers,
+#         data=json.dumps(payload))
+
+#     if not r.ok:
+#         print("Request Failed: {0}".format(r.text))
+
+# create_pull_request(
+#     "<your_project>", # project_name
+#     "Citation-Project", # repo_name
+#     "My pull request title", # title
+#     "My pull request description", # description
+#     branch_name, # head_branch
+#     "main", # base_branch
+#     "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", # git_token
+# )
+
+
