@@ -129,7 +129,9 @@ for citation in all_apa_citations:
                      'title': citation_title,
                      'references' : [{'year':citation_year, 'journal': citation_journal}],
                      'doi': citation_doi,
-                     'date-released': citation_year + '-01-01'}
+                     'date-released': citation_year + '-01-01',
+                     'references' : [{'type':'book', 'publisher':[{'name':'publisher'}]}]
+}
 
     with open(r'./Citation-Project/aCITATION.cff', 'w') as file:
             documents = yaml.dump(dict_file, file, sort_keys = False)

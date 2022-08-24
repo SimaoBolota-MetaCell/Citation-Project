@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: If you use this plugin, please cite it using these metadata
+authors:
+- family-names:
+  - Tyson
+  - Fort
+  - Rousseau
+  - Cossell
+  - Tsitoura
+  - Lenzi
+  - Obenhaus
+  - Claudi
+  - Branco
+  - Margrie
+  given-names:
+  - A.
+  - M.
+  - C.
+  - L.
+  - C.
+  - S.
+  - H.
+  - F.
+  - T.
+  - T.
+title: Accurate determination of marker location within whole-brain microscopy images
+references:
+- type: book
+  publisher:
+  - name: publisher
+  year: '2022'
+  journal:
+  - ' Scientific Reports, 12, 867 '
+doi:
+- 10.1038/s41598-021-04676-9
+date-released: '2022-01-01'
