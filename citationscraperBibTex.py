@@ -8,16 +8,17 @@ import git
 import requests
 import json
 
-repo = git.Repo('/Users/simaosa/Desktop/MetaCell/Projects/CZI/Citation project/Citation-Project') 
-origin = repo.remote("origin")  
 
-assert origin.exists()
-origin.fetch()
+# repo = git.Repo('/Users/simaosa/Desktop/MetaCell/Projects/CZI/Citation project/Citation-Project') 
+# origin = repo.remote("origin")  
 
-branch_name = 'Citation-branch14'
+# assert origin.exists()
+# origin.fetch()
 
-new_branch = repo.create_head(branch_name, origin.refs.main)  # replace prod with master/ main/ whatever you named your main branch
-new_branch.checkout()
+# branch_name = 'Citation-branchX1'
+
+# new_branch = repo.create_head(branch_name, origin.refs.main) 
+# new_branch.checkout()
 
 
 # takes url input and stores HTML of page
@@ -151,15 +152,29 @@ if all_bibtex_citations:
         year = ''.join(map(str, year))
         doi = ''.join(map(str, doi))
 
-
         dict_file = {'cff-version': '1.2.0',
                      'message': 'If you use this plugin, please cite it using these metadata',
-                     'authors': [{'family-names': family_names[0], 'given-names': given_names[0]}],
                      'title': title,
                      'references' : [{'title': publisher,'year':year, 'journal': journal}],
                      'doi': doi,
                      'date-released': year + '-01-01',
-                     'identifiers': [{'type': 'url','value':url, 'description': ''}]}
+                     'identifiers': [{'type': 'url','value':url, 'description': ''}],
+                     'references' : [{'type':'book', 'publisher':[{'name':publisher}]}]}
+
+        
+        ##merging the dict file for the authors and the dict file with the rest sis not working
+        for i in range(len(family_names)):
+            
+            author_dict_file = {'authors': [{'family-names': family_names[i], 'given-names': given_names[i]}],}
+            print(author_dict_file)
+            print('\n')
+            dict_file= {**dict_file, **author_dict_file}
+            # print(dict_file)
+
+        print(dict_file)
+
+
+
 
         with open(r'./Citation-Project/CITATION.cff', 'w') as file:
             documents = yaml.dump(dict_file, file, sort_keys = False)
@@ -167,9 +182,9 @@ if all_bibtex_citations:
 
 
 
-repo.index.add('CITATION.cff') 
-repo.index.commit("BibTex Citation Added")
-repo.git.push("--set-upstream", origin, repo.head.ref)
+# repo.index.add('CITATION.cff') 
+# repo.index.commit("BibTex Citation Added")
+# repo.git.push("--set-upstream", origin, repo.head.ref)
 
 
 
