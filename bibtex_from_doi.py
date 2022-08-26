@@ -7,14 +7,14 @@ Created by Daniel Himmelstein and released under CC0 1.0.
 """
 
 import urllib.request
+from htmlScraper import *
+import re
 
 import requests
 import bibtexparser
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.bibdatabase import BibDatabase
 
-doi = 'https://doi.org/10.12688/wellcomeopenres.15533.1'
-# doi = '10.1101/2022.03.17.484806'
 
 def shorten(doi, cache={}, verbose=False):
     """
@@ -35,7 +35,6 @@ def shorten(doi, cache={}, verbose=False):
     cache[doi] = short_doi
     return short_doi
 
-print(shorten(doi))
 
 def get_bibtext(doi, cache={}):
     """
@@ -54,7 +53,38 @@ def get_bibtext(doi, cache={}):
         cache[doi] = bibtext
     return bibtext
 
-print(get_bibtext(doi))
+
+def get_citation_from_doi(link):
+    soup = get_html(link )
+    doi = '(?:doi.org/)(.*?)(?=,)' # to fix !!
+    bibtex_pattern = '(?<=@)(.*?)(?=\}\s*\})'
+
+    paragraphs = soup.find_all("p", {'dir': 'auto'})
+    paragraphs = str(paragraphs)
+
+    lists = soup.find_all("li")
+    lists = str(lists)
+
+    p_text_w_citation = re.findall(doi, paragraphs, flags=re.DOTALL)
+    l_text_w_citation = re.findall(doi, lists, flags=re.DOTALL)
+
+    if(bool(p_text_w_citation)):
+            paragraphs = strip_tags(paragraphs)
+            citation_doi = re.findall(doi, paragraphs, flags=re.DOTALL)
+            citation_doi = ''.join(map(str, citation_doi))
+            bibtext_text = get_bibtext(citation_doi)
+            print(bibtext_text)
+            all_bibtex_citations = re.findall(bibtex_pattern, bibtext_text, flags=re.DOTALL)
+            
+
+    elif(bool(l_text_w_citation)):
+            lists = strip_tags(lists)
+            citation_doi = re.findall(doi, lists, flags=re.DOTALL)
+            citation_doi = ''.join(map(str, citation_doi))
+            bibtext_text = get_bibtext(citation_doi)
+            all_bibtex_citations = re.findall(bibtex_pattern, bibtext_text, flags=re.DOTALL)
+
+    return all_bibtex_citations
 
 # Use this as BibTex Citation to create the .CFF
 

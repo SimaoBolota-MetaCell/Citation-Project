@@ -8,6 +8,9 @@ import git
 import requests
 import json
 
+from organizedCitationScraper import get_bibtex_citations 
+
+
 
 # repo = git.Repo('/Users/simaosa/Desktop/MetaCell/Projects/CZI/Citation project/Citation-Project') 
 # origin = repo.remote("origin")  
@@ -143,6 +146,8 @@ if all_bibtex_citations:
             print('JOURNAL found')
             print(journal)
             print('\n')
+
+            
 
 
 # USING PYYAML

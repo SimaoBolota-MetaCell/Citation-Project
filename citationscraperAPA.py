@@ -52,8 +52,6 @@ print('APATEXT:' + APA_text)
 
 # REGEX PATTERNS
 
-authors = "(?:[A-Z][A-Za-z'`-]+)" + ", " + "(?:\w\.)"
-year_num = '\(([0-9]{4})\)'
 
 title = '(?:\.)(.*?)(?=\.)'
 doi = '(?:doi.org/)(.*?)(?=,)'
