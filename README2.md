@@ -6,7 +6,7 @@ Transform Citations from README or Docs into .cff files
 Normal text that is not a citation or reference
 
 
-doi.org/10.1038/s41598-021-04676-9, and ..
+bla bla, doi.org/10.1038/s41598-021-04676-9, and ..
 
 
 **Citation Examples using BiBTex:**
