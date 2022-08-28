@@ -1,30 +1,34 @@
 cff-version: 1.2.0
 message: If you use this plugin, please cite it using these metadata
-title: Accurate determination of marker location within whole-brain microscopy images
-
-doi:
-- 10.1038/s41598-021-04676-9
-date-released: '2022-01-01'
+title: citation_title
+references:
+- type: book
+  publisher:
+  - name: citation_publisher
+doi: citation_doi
+date-released: citation_year
+identifiers:
+- type: url
+  value: citation_url
+  description: ''
 authors:
-- family-names:
-  - Tyson
-  - Fort
-  - Rousseau
-  - Cossell
-  - Tsitoura
-  - Lenzi
-  - Obenhaus
-  - Claudi
-  - Branco
-  - Margrie
-  given-names:
-  - A.
-  - M.
-  - C.
-  - L.
-  - C.
-  - S.
-  - H.
-  - F.
-  - T.
-  - T.
+- family-names: A.
+  given-names: Tyson
+- family-names: M.
+  given-names: Fort
+- family-names: C.
+  given-names: Rousseau
+- family-names: L.
+  given-names: Cossell
+- family-names: C.
+  given-names: Tsitoura
+- family-names: S.
+  given-names: Lenzi
+- family-names: H.
+  given-names: Obenhaus
+- family-names: F.
+  given-names: Claudi
+- family-names: T.
+  given-names: Branco
+- family-names: T.
+  given-names: Margrie
