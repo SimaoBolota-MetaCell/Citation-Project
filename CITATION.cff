@@ -1,8 +1,30 @@
 cff-version: 1.2.0
 message: If you use this plugin, please cite it using these metadata
-title: Ttitle of the project
-doi: 11.1111/2022.01.11.111111
+title: Accurate determination of marker location within whole-brain microscopy images
+
+doi:
+- 10.1038/s41598-021-04676-9
 date-released: '2022-01-01'
 authors:
-- family-names: familyname
-  given-names: X
+- family-names:
+  - Tyson
+  - Fort
+  - Rousseau
+  - Cossell
+  - Tsitoura
+  - Lenzi
+  - Obenhaus
+  - Claudi
+  - Branco
+  - Margrie
+  given-names:
+  - A.
+  - M.
+  - C.
+  - L.
+  - C.
+  - S.
+  - H.
+  - F.
+  - T.
+  - T.
