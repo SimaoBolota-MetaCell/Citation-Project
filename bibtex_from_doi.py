@@ -65,8 +65,15 @@ def get_citation_from_doi(link):
     lists = soup.find_all("li")
     lists = str(lists)
 
-    p_text_w_citation = re.findall(doi, paragraphs, flags=re.DOTALL)
-    l_text_w_citation = re.findall(doi, lists, flags=re.DOTALL)
+    full_doi_pattern = '(10.(\d)+/([^(\s\>\"\<)])+)'
+
+
+    p_text_w_citation = re.findall(full_doi_pattern, paragraphs, flags=re.DOTALL)
+    l_text_w_citation = re.findall(full_doi_pattern, lists, flags=re.DOTALL)
+
+
+    # p_text_w_citation = re.findall(doi, paragraphs, flags=re.DOTALL)
+    # l_text_w_citation = re.findall(doi, lists, flags=re.DOTALL)
 
     if(bool(p_text_w_citation)):
             paragraphs = strip_tags(paragraphs)
