@@ -12,23 +12,23 @@ identifiers:
   value: citation_url
   description: ''
 authors:
-- family-names: A.
-  given-names: Tyson
-- family-names: M.
-  given-names: Fort
-- family-names: C.
-  given-names: Rousseau
-- family-names: L.
-  given-names: Cossell
-- family-names: C.
-  given-names: Tsitoura
-- family-names: S.
-  given-names: Lenzi
-- family-names: H.
-  given-names: Obenhaus
-- family-names: F.
-  given-names: Claudi
-- family-names: T.
-  given-names: Branco
-- family-names: T.
-  given-names: Margrie
+- family-names: Tyson
+  given-names: A.
+- family-names: Fort
+  given-names: M.
+- family-names: Rousseau
+  given-names: C.
+- family-names: Cossell
+  given-names: L.
+- family-names: Tsitoura
+  given-names: C.
+- family-names: Lenzi
+  given-names: S.
+- family-names: Obenhaus
+  given-names: H.
+- family-names: Claudi
+  given-names: F.
+- family-names: Branco
+  given-names: T.
+- family-names: Margrie
+  given-names: T.
