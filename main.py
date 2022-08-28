@@ -2,14 +2,17 @@
 from bibtexCitation import *
 from apaCitation import *
 from bibtex_from_doi import *
+import yaml
 
 
-# README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/onlyDOI.md'
-README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/APA.md'
+
+README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/onlyDOI.md'
+# README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/APA.md'
 # README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/bibtextandAPA.md'
 
 if (bool(get_bibtex_citations(README_LINK))):
         all_bibtex_citations = get_bibtex_citations(README_LINK)
+        print('BIBTEX CITATION')
 
         for individual_citation in all_bibtex_citations:
 
@@ -42,6 +45,7 @@ if (bool(get_bibtex_citations(README_LINK))):
                 print(citation_journal)
 
 elif(bool(get_apa_citations(README_LINK))):
+        print('APA CITATION')
 
         APA_text, all_apa_authors, all_apa_citations = get_apa_citations(README_LINK)
 
@@ -72,10 +76,11 @@ elif(bool(get_apa_citations(README_LINK))):
                 print('\n')
                 print(citation_journal)
 
-else:
-        all_bibtex_citations = get_citation_from_doi(README_LINK)     
+else: # CHANGE THIS, going to APA instead of going to this logic
+        all_bibtex_citations = get_citation_from_doi(README_LINK)   
+        print('DOI CITATION')  
         for individual_citation in all_bibtex_citations:
-                # print(individual_citation)
+                print(individual_citation)
                 individual_citation = re.sub('"', '}', individual_citation)
                 individual_citation = re.sub('= }', '= {', individual_citation)
 
@@ -106,21 +111,27 @@ else:
 
 
 
-# dict_file = {'cff-version': '1.2.0',
-#                      'message': 'If you use this plugin, please cite it using these metadata',
-#                      'title': citation_title,
-#                      'references' : [{'title': citation_publisher,'year':citation_year, 'journal': citation_journal}],
-#                      'doi': doi,
-#                      'date-released': citation_year,
-#                      'identifiers': [{'type': 'url','value':citation_url, 'description': ''}],
-#                      'references' : [{'type':'book', 'publisher':[{'name':citation_publisher}]}]}
+dict_file = {'cff-version': '1.2.0',
+                     'message': 'If you use this plugin, please cite it using these metadata',
+                     'title': citation_title,
+                     'references' : [{'title': 'hi','year':citation_year, 'journal': citation_journal}],
+                     'doi': citation_doi,
+                     'date-released': citation_year,
+                     'identifiers': [{'type': 'hi','value':citation_url, 'description': ''}],
+                     'references' : [{'type':'book', 'publisher':[{'name':citation_publisher}]}]}
 
-        
-        ##merging the dict file for the authors and the dict file with the rest sis not working
-# for i in range(len(family_names)):
-            
-#             author_dict_file = {'authors': [{'family-names': family_names[i], 'given-names': given_names[i]}],}
-#             print(author_dict_file)
-#             print('\n')
-#             dict_file= {**dict_file, **author_dict_file}
-#             # print(dict_file)
+
+for i in range(len(citation_family_names)):
+    
+    author_dict_file = {'authors': [{'family-names': citation_family_names[i], 'given-names': citation_given_names[i]}],}
+    
+    for key, value in author_dict_file.items():
+     if key in dict_file:
+        dict_file[key].extend(value)
+     else:
+        dict_file[key] = value
+print(dict_file)
+
+with open(r'./Citation-Project/CITATION.cff', 'w') as file:
+            documents = yaml.dump(dict_file, file, sort_keys = False)
+

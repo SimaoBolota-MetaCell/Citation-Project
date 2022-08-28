@@ -1,13 +1,14 @@
 from htmlScraper import *
 import re
 
-doi_pattern = '(?:doi.org/)(.*?)(?=\,)'
+apa_doi_pattern = '(?:doi.org/)(.*?)(?=\,)'
 authors = "(?:[A-Z][A-Za-z'`-]+)" + ", " + "(?:\w\.)"
 year_num = '\(([0-9]{4})\)'
+full_doi_pattern = '(10.(\d)+/([^(\s\>\"\<)])+)'
+
 
 def get_apa_citations(link):
     soup = get_html(link )
-
 
     paragraphs = soup.find_all("p", {'dir': 'auto'})
     paragraphs = str(paragraphs)
@@ -15,12 +16,8 @@ def get_apa_citations(link):
     lists = soup.find_all("li")
     lists = str(lists)
 
-    print(paragraphs)
-
-    p_text_w_citation = re.findall(doi_pattern, paragraphs, flags=re.DOTALL)
-    l_text_w_citation = re.findall(doi_pattern, lists, flags=re.DOTALL)
-
-    print(bool(p_text_w_citation))
+    p_text_w_citation = re.findall(full_doi_pattern, paragraphs, flags=re.DOTALL)
+    l_text_w_citation = re.findall(full_doi_pattern, lists, flags=re.DOTALL)
 
     if(bool(p_text_w_citation)):
         APA_text = strip_tags(paragraphs)
@@ -33,7 +30,7 @@ def get_apa_citations(link):
     all_apa_authors = re.findall(authors, APA_text, flags=re.DOTALL)
     all_apa_authors = ', '.join(all_apa_authors)
 
-    apa_pattern_wo_authors = year_num + "(.*?)" + doi_pattern
+    apa_pattern_wo_authors = year_num + "(.*?)" + apa_doi_pattern
 
     all_apa_citations = re.findall(
     apa_pattern_wo_authors, APA_text, flags=re.DOTALL)
@@ -83,7 +80,7 @@ def get_apa_journal(apa_citation_title, APA_text):
 
 
 def get_apa_doi(APA_text):
-    apa_citation_doi = re.findall(doi_pattern, APA_text, flags=re.DOTALL)
+    apa_citation_doi = re.findall(apa_doi_pattern, APA_text, flags=re.DOTALL)
     return apa_citation_doi
 
 
