@@ -56,7 +56,6 @@ def get_bibtext(doi, cache={}):
 
 def get_citation_from_doi(link):
     soup = get_html(link )
-    doi = '(?:doi.org/)(.*?)(?=,)' # to fix !!
     bibtex_pattern = '(?<=@)(.*?)(?=\}\s*\})'
 
     paragraphs = soup.find_all("p", {'dir': 'auto'})
@@ -65,33 +64,36 @@ def get_citation_from_doi(link):
     lists = soup.find_all("li")
     lists = str(lists)
 
-    full_doi_pattern = '(10.(\d)+/([^(\s\>\"\<)])+)'
+    FULL_DOI_PATERN = '(10.(\d)+/([^(\s\>\"\<)])+)'
+
+    DOI_IN_HTML_PATTERN = '(10[.][0-9]{4,}[^\s"/<>]*/[^\s"<>]+)(?=\])'
 
 
-    p_text_w_citation = re.findall(full_doi_pattern, paragraphs, flags=re.DOTALL)
-    l_text_w_citation = re.findall(full_doi_pattern, lists, flags=re.DOTALL)
+    p_text_w_citation = re.findall(FULL_DOI_PATERN, paragraphs, flags=re.DOTALL)
+    l_text_w_citation = re.findall(FULL_DOI_PATERN, lists, flags=re.DOTALL)
 
-
-    # p_text_w_citation = re.findall(doi, paragraphs, flags=re.DOTALL)
-    # l_text_w_citation = re.findall(doi, lists, flags=re.DOTALL)
-
+    # print(bool(p_text_w_citation))
     if(bool(p_text_w_citation)):
             paragraphs = strip_tags(paragraphs)
-            citation_doi = re.findall(doi, paragraphs, flags=re.DOTALL)
+            citation_doi = re.findall(DOI_IN_HTML_PATTERN, paragraphs, flags=re.DOTALL)
             citation_doi = ''.join(map(str, citation_doi))
             bibtext_text = get_bibtext(citation_doi)
-            print(bibtext_text)
-            all_bibtex_citations = re.findall(bibtex_pattern, bibtext_text, flags=re.DOTALL)
             
 
     elif(bool(l_text_w_citation)):
             lists = strip_tags(lists)
-            citation_doi = re.findall(doi, lists, flags=re.DOTALL)
+            citation_doi = re.findall(DOI_IN_HTML_PATTERN, lists, flags=re.DOTALL)
             citation_doi = ''.join(map(str, citation_doi))
             bibtext_text = get_bibtext(citation_doi)
-            all_bibtex_citations = re.findall(bibtex_pattern, bibtext_text, flags=re.DOTALL)
 
-    return all_bibtex_citations
+    else:
+        bibtext_text = False
+    
+    # print(bool(bibtext_text))
 
-# Use this as BibTex Citation to create the .CFF
+    if(bool(bibtext_text)):
+        all_bibtex_citations = re.findall(bibtex_pattern, bibtext_text, flags=re.DOTALL)
+        return all_bibtex_citations
+
+
 

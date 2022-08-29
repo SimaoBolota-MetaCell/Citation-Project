@@ -1,8 +1,5 @@
 cff-version: 1.2.0
 message: If you use this plugin, please cite it using these metadata
-title: citation_title
-references:
-- type: book
   publisher:
   - name: citation_publisher
 doi: citation_doi
@@ -32,3 +29,4 @@ authors:
   given-names: T.
 - family-names: Margrie
   given-names: T.
+

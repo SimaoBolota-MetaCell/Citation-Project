@@ -58,6 +58,9 @@ def get_bibtex_given_names(individual_citation):
 def get_bibtex_year(individual_citation):
     year = re.findall(
             '(?<=year\\s=\\s\{)(.*?)(?=\},)', individual_citation, flags=re.DOTALL)
+    if(bool(year)==False):
+        year = re.findall(
+            '(?<=year\\s=\\s)(.*?)(?=,)', individual_citation, flags=re.DOTALL)
     if year:
         year = ''.join(map(str, year))
         return year
@@ -72,7 +75,9 @@ def get_bibtex_title(individual_citation):
 def get_bibtex_publisher(individual_citation):
     publisher = re.findall(
             '(?<=publisher\\s=\\s\{)(.*?)(?=\},)', individual_citation, flags=re.DOTALL)
-    
+    if (bool(publisher)==False):
+        publisher = re.findall(
+            '(?<=publisher\\s=\\s\{)(.*?)(?=\{)', individual_citation, flags=re.DOTALL)
     
     publisher = ''.join(map(str, publisher))
     return publisher

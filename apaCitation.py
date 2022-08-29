@@ -23,19 +23,22 @@ def get_apa_citations(link):
         APA_text = strip_tags(paragraphs)
     elif(bool(l_text_w_citation)):
         APA_text = strip_tags(lists) 
+    else:
+        APA_text = False
 
-    APA_text = APA_text.replace("\xa0", " ") 
-    APA_text = re.sub('\.\\s\w\.', '.', APA_text)
+    if(bool(APA_text)):
+        APA_text = APA_text.replace("\xa0", " ") 
+        APA_text = re.sub('\.\\s\w\.', '.', APA_text)
 
-    all_apa_authors = re.findall(authors, APA_text, flags=re.DOTALL)
-    all_apa_authors = ', '.join(all_apa_authors)
+        all_apa_authors = re.findall(authors, APA_text, flags=re.DOTALL)
+        all_apa_authors = ', '.join(all_apa_authors)
 
-    apa_pattern_wo_authors = year_num + "(.*?)" + apa_doi_pattern
+        apa_pattern_wo_authors = year_num + "(.*?)" + apa_doi_pattern
 
-    all_apa_citations = re.findall(
-    apa_pattern_wo_authors, APA_text, flags=re.DOTALL)
+        all_apa_citations = re.findall(
+        apa_pattern_wo_authors, APA_text, flags=re.DOTALL)
 
-    return APA_text, all_apa_authors, all_apa_citations
+        return APA_text, all_apa_authors, all_apa_citations
 
 
 
