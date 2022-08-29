@@ -48,7 +48,6 @@ Question: Since some of the subcomponents might not be found/available (in the e
 For when No Citation Information is found in the README.md, the .CFF is created taking in **only the GitHub Repo Author name**:
 
 ![Screenshot at Aug 29 15-40-11](https://user-images.githubusercontent.com/99416933/187227630-8f0960d6-f12d-4d2e-9f02-cdb31ece9260.png)
-![Screenshot at Aug 29 15-40-35](https://user-images.githubusercontent.com/99416933/187227635-aa61d20e-3c29-4d45-a117-71e5be73e8b7.png)
 
 
 **Git Automations**:
