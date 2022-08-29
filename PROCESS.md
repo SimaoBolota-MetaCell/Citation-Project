@@ -43,7 +43,10 @@ Since the bibtex patterns were previously implemented in the BibTex Citation cod
 
 ![Screenshot at Aug 29 15-34-13](https://user-images.githubusercontent.com/99416933/187226233-d8869e6e-89c4-4867-a08e-095b91608046.png)
 
-Question: Since some of the subcomponents might not be found/available (in the example, the 'None' and '[] ), should they be displayed as an empty string ' ' or as 'Not Available'?
+Question 1.1: Do we want to show the subcomponents if they are not available/found? Or do we only create the .CFF with the components that have meaningful information
+
+Question 1.2: If we want to show them, and since some of the subcomponents might not be found/available (in the example, the 'None' and '[] ), should they be displayed as an empty string ' ' or as 'Not Available'?
+
 
 For when No Citation Information is found in the README.md, the .CFF is created taking in **only the GitHub Repo Author name**:
 
@@ -51,7 +54,8 @@ For when No Citation Information is found in the README.md, the .CFF is created 
 
 **DICT FILE**:
 
-Question: Do we want the main citation in CFF format to be for the software or the paper/article it's based on?
+
+Question 1: Do we want the main citation in CFF format to be for the software or the paper/article it's based on?
 
 Creating a CFF has different keys for the different type of citation. For ```type: article``` information about the publication like the journal is also a key
 
