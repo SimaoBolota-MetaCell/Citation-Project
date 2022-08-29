@@ -1,13 +1,32 @@
 cff-version: 1.2.0
 message: If you use this plugin, please cite it using these metadata
-references:
-- type: software
-- type: book
-  publisher: Cold Spring Harbor Laboratory
-- type: article
-  journal: Not Available
-title: Instance segmentation of mitochondria in electron microscopy images with a
-  generalist deep learning model
-date-released: '2022-01-01'
-url: https://www.biorxiv.org/content/early/2022/03/18/2022.03.17.484806
-doi: 10.1101/2022.03.17.484806
+  publisher:
+  - name: citation_publisher
+doi: citation_doi
+date-released: citation_year
+identifiers:
+- type: url
+  value: citation_url
+  description: ''
+authors:
+- family-names: Tyson
+  given-names: A.
+- family-names: Fort
+  given-names: M.
+- family-names: Rousseau
+  given-names: C.
+- family-names: Cossell
+  given-names: L.
+- family-names: Tsitoura
+  given-names: C.
+- family-names: Lenzi
+  given-names: S.
+- family-names: Obenhaus
+  given-names: H.
+- family-names: Claudi
+  given-names: F.
+- family-names: Branco
+  given-names: T.
+- family-names: Margrie
+  given-names: T.
+
