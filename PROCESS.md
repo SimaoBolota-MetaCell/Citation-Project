@@ -52,8 +52,8 @@ For when No Citation Information is found in the README.md, the .CFF is created 
 
 **Git Automations**:
 
-- Create Branch
-- Push Commit
+- Create Branch (unique names)
+- Push Commit (pushes only the CITAION.CFF)
 - Pull Request (TO DO)
 
 **PROCESS**:
