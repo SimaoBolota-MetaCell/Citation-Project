@@ -49,6 +49,19 @@ For when No Citation Information is found in the README.md, the .CFF is created 
 
 ![Screenshot at Aug 29 15-40-11](https://user-images.githubusercontent.com/99416933/187227630-8f0960d6-f12d-4d2e-9f02-cdb31ece9260.png)
 
+**DICT FILE**:
+
+Question: Do we want the main citation in CFF format to be for the software or the paper/article it's based on?
+
+Creating a CFF has different keys for the different type of citation. For ```type: article``` information about the publication like the journal is also a key
+<img width="810" alt="Screenshot_at_Aug_25_15-33-20" src="https://user-images.githubusercontent.com/99416933/187229511-9a02cd9d-1df5-41f5-bd08-9caf4485e345.png">
+while for ```type:software``` it doesn't
+<img width="616" alt="Screenshot_at_Aug_25_15-36-24" src="https://user-images.githubusercontent.com/99416933/187229564-cec05a59-004d-49b4-9a9e-ff5a99ab1a6c.png">
+
+Solution: I can put it as both when the journal variable is not empty 
+<img width="827" alt="Screenshot_at_Aug_25_15-35-54" src="https://user-images.githubusercontent.com/99416933/187229604-ab20dc8f-0f33-4f88-8369-5510bc7a585d.png">
+
+
 
 **Git Automations**:
 
