@@ -34,7 +34,7 @@ After having all the correct citations, **parse them into its subcomponents** (w
 - APA (author, doi, year, journal, url, publisher)
   - example :![Screenshot at Aug 22 16-12-56](https://user-images.githubusercontent.com/99416933/185956227-a2034225-e0a0-491c-8cfe-16e69fe6aca0.png)
 
-For when no APA or BibTex Citation is found in the README.md, a **DOI Scraper** looks for a DOI pattern in the README.md and using a DOI Content Negotioation (http://crosscite.org/cn/) the string with the bibtex entry is retrived:
+So far there is logic implemented to take in account BibTex and APA Citations from the README.md and retrieve its subcomponents. For when no APA or BibTex Citation is found in the README.md, a **DOI Scraper** looks for a DOI pattern in the README.md and using a DOI Content Negotioation (http://crosscite.org/cn/) the string with the bibtex entry is retrived:
 
 ![Screenshot at Aug 29 15-25-50](https://user-images.githubusercontent.com/99416933/187224446-d6bf4d2b-d585-4200-90b9-826d87fd9397.png)
 
