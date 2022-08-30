@@ -6,15 +6,17 @@ from apaCitation import *
 from bibtex_from_doi import *
 import yaml
 import git
+import json
+import warnings
 
 
-# README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/onlyDOI.md'
+README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/onlyDOI.md'
 # README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/APA.md'
-README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/bibtextandAPA.md'
+# README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/bibtextandAPA.md'
 # README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/emptyreadme.md'
 
 
-NOT_AVAILABLE = ['Not Available']
+NOT_AVAILABLE = ['Not_Available']
 
 
 citation_title = {}
@@ -25,6 +27,22 @@ citation_give_names = {}
 citation_year = {}
 citation_journal = {}
 citation_doi = {}
+
+isBibtex = bool(get_bibtex_citations(README_LINK))
+isDOI = bool(get_citation_from_doi(README_LINK))
+APA_text_var, all_apa_authors_var, all_apa_citations_var = get_apa_citations(README_LINK)
+isAPA = bool(all_apa_authors_var)
+
+if(isBibtex):
+    print('BibTex Citation')
+elif(isAPA):
+    print('APA Citation')
+elif(isDOI):
+    print('DOI Citation')
+else:
+    print('No Citation Information')
+
+
 #########################  CREATE BRANCH  ##########################
 
 
@@ -34,12 +52,17 @@ origin = repo.remote("origin")
 assert origin.exists()
 origin.fetch()
 
+repo_name = repo.remotes.origin.url.split('.git')[0].split('/')[-1]
+
+
+branch_name = 'TestBranch-7'
+new_branch = repo.create_head(branch_name, origin.refs.main) 
+new_branch.checkout()
+
 #########################  BIBTEX CITATION  ##########################
 
-if (bool(get_bibtex_citations(README_LINK))):
+if (isBibtex):
     all_bibtex_citations = get_bibtex_citations(README_LINK)
-    print('BIBTEX CITATION')
-
     for individual_citation in all_bibtex_citations:
 
         individual_citation = re.sub('"', '}', individual_citation)
@@ -74,15 +97,11 @@ if (bool(get_bibtex_citations(README_LINK))):
 #########################  APA CITATION  ##########################
 
 
-elif (bool(get_apa_citations(README_LINK))):
-
+elif (isAPA):
     APA_text, all_apa_authors, all_apa_citations = get_apa_citations(
         README_LINK)
 
     if (bool(all_apa_authors)):
-
-        print('APA CITATION')
-
         APA_text, all_apa_authors, all_apa_citations = get_apa_citations(
             README_LINK)
 
@@ -115,10 +134,9 @@ elif (bool(get_apa_citations(README_LINK))):
 
 
 #########################  ONLY DOI  ##########################
-elif (bool(get_citation_from_doi(README_LINK))):
-    print('DOI CITATION')
+
+elif (isDOI):
     all_bibtex_citations = get_citation_from_doi(README_LINK)
-    print('DOI CITATION')
     for individual_citation in all_bibtex_citations:
         individual_citation = re.sub('"', '}', individual_citation)
         individual_citation = re.sub('= }', '= {', individual_citation)
@@ -149,12 +167,15 @@ elif (bool(get_citation_from_doi(README_LINK))):
         print(citation_journal)
 
 
+
 #################### No CITATION INFO - USE GIT AUTHOR INFO ####################
 
-elif (bool(get_citation_from_doi(README_LINK)) == False):
-    GIT_FAMILY_NAMES_PATTERN = '(?<=Author:\\s)(.*?)(?=\\s)'
+else:
+    print('\n')
+    warnings.warn("Warning...........Please insert citation or DOI ")
 
-    print('NO CITATION INFO')
+    GIT_FAMILY_NAMES_PATTERN = '(?<=Author:\\s)(.*?)(?=\\s)'
+    
     git_author = repo.git.show("-s", "--format=Author: %an <%ae>")
 
     citation_given_names = re.findall(
@@ -166,6 +187,9 @@ elif (bool(get_citation_from_doi(README_LINK)) == False):
     citation_family_names = re.findall(
         GIT_GIVEN_NAMES_PATTERN, git_author, flags=re.DOTALL)
 
+
+
+        
 
 #########################  DICT FILE  ##########################
 
@@ -181,12 +205,7 @@ if (bool(citation_family_names) and citation_family_names != NOT_AVAILABLE):
             {'family-names': citation_family_names[i], 'given-names': citation_given_names[i]}], }
 
 elif (bool(citation_family_names) == False):
-    citation_family_names = NOT_AVAILABLE
-    citation_family_names = ''.join(map(str, citation_family_names))
-    citation_given_names = NOT_AVAILABLE
-    citation_given_names = ''.join(map(str, citation_given_names))
-    author_dict_file = {[{'authors': [
-        {'family-names': citation_family_names, 'given-names': citation_given_names}], }]}
+    author_dict_file = {'authors': [{'family-names': 'NOT_AVAILABLE', 'given-names': 'NOT_AVAILABLE'}], }
 
 for key, value in author_dict_file.items():
     if key in dict_file:
@@ -199,9 +218,7 @@ if (bool(citation_title) and citation_title != NOT_AVAILABLE):
     for i in range(len(citation_title)):
         title_dict_file = {'title': citation_title}
 elif (bool(citation_title) == False):
-    citation_title = NOT_AVAILABLE
-    citation_title = ''.join(map(str, citation_title))
-    title_dict_file = {'title': citation_title}
+    title_dict_file = {'title': NOT_AVAILABLE}
 for key, value in title_dict_file.items():
     if key in dict_file:
         dict_file[key].extend(value)
@@ -214,10 +231,7 @@ if (bool(citation_year) and citation_year != NOT_AVAILABLE):
 
         year_dict_file = {'date-released': citation_year + '-01-01'}
 elif (bool(citation_year) == False):
-    citation_year = NOT_AVAILABLE
-    citation_year = ''.join(map(str, citation_year))
-
-    year_dict_file = {'date-released': citation_year}
+    year_dict_file = {'date-released': NOT_AVAILABLE}
 
 for key, value in year_dict_file.items():
     if key in dict_file:
@@ -231,9 +245,7 @@ if (bool(citation_url) and citation_url != NOT_AVAILABLE):
         citation_url = ''.join(map(str, citation_url))
         url_dict_file = {'url': citation_url}
 elif(bool(citation_url) == False):
-        citation_url = NOT_AVAILABLE
-        citation_url = ''.join(map(str, citation_url))
-        url_dict_file = {'url': citation_url}
+        url_dict_file = {'url': NOT_AVAILABLE}
 for key, value in url_dict_file.items():
         if key in dict_file:
             dict_file[key].extend(value)
@@ -246,9 +258,7 @@ if (bool(citation_doi) and citation_doi != NOT_AVAILABLE):
         citation_doi = ''.join(map(str, citation_doi))
         doi_dict_file = {'doi': citation_doi}
 elif(bool(citation_doi) == False):
-        citation_doi = NOT_AVAILABLE
-        citation_doi = ''.join(map(str, citation_doi))
-        doi_dict_file = {'doi': citation_doi}
+        doi_dict_file = {'doi': NOT_AVAILABLE}
 for key, value in doi_dict_file.items():
         if key in dict_file:
             dict_file[key].extend(value)
@@ -262,10 +272,8 @@ if (bool(citation_publisher) and citation_publisher != NOT_AVAILABLE):
             {'type': 'book', 'publisher': citation_publisher}]}
 
 elif(bool(citation_publisher) == False):
-        citation_publisher = NOT_AVAILABLE
-        citation_publisher = ''.join(map(str, citation_publisher))
         publisher_dict_file = {'references': [
-            {'type': 'book', 'publisher': citation_publisher}]}
+            {'type': 'book', 'publisher': NOT_AVAILABLE}]}
 for key, value in publisher_dict_file.items():
         if key in dict_file:
             dict_file[key].extend(value)
@@ -279,10 +287,8 @@ if (bool(citation_journal) and citation_journal != NOT_AVAILABLE):
         journal_dict_file = {'references': [
             {'type': 'article', 'journal': citation_journal}]}
 elif (bool(citation_journal) == False):
-        citation_journal = NOT_AVAILABLE
-        citation_journal = ''.join(map(str, citation_journal))
         journal_dict_file = {'references': [
-            {'type': 'article', 'journal': citation_journal}]}
+            {'type': 'article', 'journal': 'NOT_AVAILABLE'}]}
 
 for key, value in journal_dict_file.items():
         if key in dict_file:
@@ -307,12 +313,12 @@ with open(r'./Citation-Project/CITATION.cff', 'w') as file:
 
 # def create_pull_request(project_name, repo_name, title, description, head_branch, base_branch, git_token):
 #     """Creates the pull request for the head_branch against the base_branch"""
-#     git_pulls_api = "https://github.com/api/v3/repos/{0}/{1}/pulls".format(
+#     git_pulls_api = "https://api.github.com/repos/{0}/{1}/pulls".format(
 #         project_name,
 #         repo_name)
 #     headers = {
 #         "Authorization": "token {0}".format(git_token),
-#         "Content-Type": "application/json"}
+#         "Content-Type": "application/vnd.github+json"}
 
 #     payload = {
 #         "title": title,
@@ -329,12 +335,13 @@ with open(r'./Citation-Project/CITATION.cff', 'w') as file:
 #     if not r.ok:
 #         print("Request Failed: {0}".format(r.text))
 
+
 # create_pull_request(
-#     "<your_project>", # project_name
-#     "Citation-Project", # repo_name
+#     "Citation-Project", # project_name
+#     repo_name, # repo_name
 #     "My pull request title", # title
 #     "My pull request description", # description
 #     branch_name, # head_branch
 #     "main", # base_branch
-#     "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", # git_token
+#     "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", # git_token
 # )
