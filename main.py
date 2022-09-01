@@ -4,19 +4,17 @@
 from bibtexCitation import *
 from apaCitation import *
 from bibtex_from_doi import *
+from create_dict import *
 import yaml
 import git
 import json
 import warnings
 
 
-README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/onlyDOI.md'
+# README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/onlyDOI.md'
 # README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/APA.md'
 # README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/bibtextandAPA.md'
-# README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/emptyreadme.md'
-
-
-NOT_AVAILABLE = ['Not_Available']
+README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/emptyreadme.md'
 
 
 citation_title = {}
@@ -30,17 +28,9 @@ citation_doi = {}
 
 isBibtex = bool(get_bibtex_citations(README_LINK))
 isDOI = bool(get_citation_from_doi(README_LINK))
-APA_text_var, all_apa_authors_var, all_apa_citations_var = get_apa_citations(README_LINK)
-isAPA = bool(all_apa_authors_var)
 
-if(isBibtex):
-    print('BibTex Citation')
-elif(isAPA):
-    print('APA Citation')
-elif(isDOI):
-    print('DOI Citation')
-else:
-    print('No Citation Information')
+
+GIT_FAMILY_NAMES_PATTERN = '(?<=Author:\\s)(.*?)(?=\\s)'
 
 
 #########################  CREATE BRANCH  ##########################
@@ -54,14 +44,17 @@ origin.fetch()
 
 repo_name = repo.remotes.origin.url.split('.git')[0].split('/')[-1]
 
+git_author = repo.git.show("-s", "--format=Author: %an <%ae>")
 
-branch_name = 'TestBranch-7'
-new_branch = repo.create_head(branch_name, origin.refs.main) 
-new_branch.checkout()
+
+# branch_name = 'TestBranch-1Sep2022x1'
+# new_branch = repo.create_head(branch_name, origin.refs.main) 
+# new_branch.checkout()
 
 #########################  BIBTEX CITATION  ##########################
 
 if (isBibtex):
+    print('BibTex Citation')
     all_bibtex_citations = get_bibtex_citations(README_LINK)
     for individual_citation in all_bibtex_citations:
 
@@ -77,31 +70,27 @@ if (isBibtex):
         citation_url = get_bibtex_url(individual_citation)
         citation_doi = get_bibtex_doi(individual_citation)
 
-        print(citation_family_names)
-        print('\n')
-        print(citation_given_names)
-        print('\n')
-        print(citation_title)
-        print('\n')
-        print(citation_year)
-        print('\n')
-        print(citation_url)
-        print('\n')
-        print(citation_publisher)
-        print('\n')
-        print(citation_doi)
-        print('\n')
-        print(citation_journal)
+
+    filedict = add_to_dict(citation_family_names, citation_given_names, citation_title, citation_year, citation_url, citation_doi, citation_publisher, citation_journal )
+
+    print('\n')
+    print(filedict)
+    print('\n')
+    with open(r'./Citation-Project/CITATION.cff', 'w') as file:
+            documents = yaml.dump(filedict, file, sort_keys=False)
 
 
 #########################  APA CITATION  ##########################
 
 
-elif (isAPA):
+elif isBibtex==False and bool(get_apa_citations(README_LINK)):
+    
+    
     APA_text, all_apa_authors, all_apa_citations = get_apa_citations(
         README_LINK)
 
     if (bool(all_apa_authors)):
+        print('APA Citation')
         APA_text, all_apa_authors, all_apa_citations = get_apa_citations(
             README_LINK)
 
@@ -120,52 +109,41 @@ elif (isAPA):
             citation_journal = get_apa_journal(citation_title, APA_text)
             citation_doi = get_apa_doi(APA_text)
 
-            print(citation_family_names)
-            print('\n')
-            print(citation_given_names)
-            print('\n')
-            print(citation_title)
-            print('\n')
-            print(citation_year)
-            print('\n')
-            print(citation_doi)
-            print('\n')
-            print(citation_journal)
 
+        filedict = add_to_dict(citation_family_names, citation_given_names, citation_title, citation_year, citation_url, citation_doi, citation_publisher, citation_journal )
+
+        print('\n')
+        print(filedict)
+        print('\n')
+        with open(r'./Citation-Project/CITATION.cff', 'w') as file:
+                documents = yaml.dump(filedict, file, sort_keys=False)
 
 #########################  ONLY DOI  ##########################
 
-elif (isDOI):
-    all_bibtex_citations = get_citation_from_doi(README_LINK)
-    for individual_citation in all_bibtex_citations:
-        individual_citation = re.sub('"', '}', individual_citation)
-        individual_citation = re.sub('= }', '= {', individual_citation)
+    else:
+        print('DOI Citation')
+        all_bibtex_citations = get_citation_from_doi(README_LINK)
+        for individual_citation in all_bibtex_citations:
+            individual_citation = re.sub('"', '}', individual_citation)
+            individual_citation = re.sub('= }', '= {', individual_citation)
 
-        citation_family_names = get_bibtex_family_names(individual_citation)
-        citation_given_names = get_bibtex_given_names(individual_citation)
-        citation_title = get_bibtex_title(individual_citation)
-        citation_year = get_bibtex_year(individual_citation)
-        citation_publisher = get_bibtex_publisher(individual_citation)
-        citation_journal = get_bibtex_journal(individual_citation)
-        citation_url = get_bibtex_url(individual_citation)
-        citation_doi = get_bibtex_doi(individual_citation)
+            citation_family_names = get_bibtex_family_names(individual_citation)
+            citation_given_names = get_bibtex_given_names(individual_citation)
+            citation_title = get_bibtex_title(individual_citation)
+            citation_year = get_bibtex_year(individual_citation)
+            citation_publisher = get_bibtex_publisher(individual_citation)
+            citation_journal = get_bibtex_journal(individual_citation)
+            citation_url = get_bibtex_url(individual_citation)
+            citation_doi = get_bibtex_doi(individual_citation)
 
-        print(citation_family_names)
-        print('\n')
-        print(citation_given_names)
-        print('\n')
-        print(citation_title)
-        print('\n')
-        print(citation_year)
-        print('\n')
-        print(citation_url)
-        print('\n')
-        print(citation_publisher)
-        print('\n')
-        print(citation_doi)
-        print('\n')
-        print(citation_journal)
 
+        filedict = add_to_dict(citation_family_names, citation_given_names, citation_title, citation_year, citation_url, citation_doi, citation_publisher, citation_journal )
+
+        print('\n')
+        print(filedict)
+        print('\n')
+        with open(r'./Citation-Project/CITATION.cff', 'w') as file:
+                documents = yaml.dump(filedict, file, sort_keys=False)
 
 
 #################### No CITATION INFO - USE GIT AUTHOR INFO ####################
@@ -174,10 +152,7 @@ else:
     print('\n')
     warnings.warn("Warning...........Please insert citation or DOI ")
 
-    GIT_FAMILY_NAMES_PATTERN = '(?<=Author:\\s)(.*?)(?=\\s)'
     
-    git_author = repo.git.show("-s", "--format=Author: %an <%ae>")
-
     citation_given_names = re.findall(
         GIT_FAMILY_NAMES_PATTERN, git_author, flags=re.DOTALL)
     citation_given_names_string = ''.join(map(str, citation_given_names))
@@ -187,120 +162,15 @@ else:
     citation_family_names = re.findall(
         GIT_GIVEN_NAMES_PATTERN, git_author, flags=re.DOTALL)
 
+    filedict = add_to_dict(citation_family_names, citation_given_names, citation_title, citation_year, citation_url, citation_doi, citation_publisher, citation_journal )
+
+    print('\n')
+    print(filedict)
+    print('\n')
+    with open(r'./Citation-Project/CITATION.cff', 'w') as file:
+            documents = yaml.dump(filedict, file, sort_keys=False)
 
 
-        
-
-#########################  DICT FILE  ##########################
-
-dict_file = {'cff-version': '1.2.0',
-             'message': 'If you use this plugin, please cite it using these metadata',
-             'references':[{'type':'software', }],
-             }
-
-######
-if (bool(citation_family_names) and citation_family_names != NOT_AVAILABLE):
-    for i in range(len(citation_family_names)):
-        author_dict_file = {'authors': [
-            {'family-names': citation_family_names[i], 'given-names': citation_given_names[i]}], }
-
-elif (bool(citation_family_names) == False):
-    author_dict_file = {'authors': [{'family-names': 'NOT_AVAILABLE', 'given-names': 'NOT_AVAILABLE'}], }
-
-for key, value in author_dict_file.items():
-    if key in dict_file:
-        dict_file[key].extend(value)
-    else:
-        dict_file[key] = value
-
-######
-if (bool(citation_title) and citation_title != NOT_AVAILABLE):
-    for i in range(len(citation_title)):
-        title_dict_file = {'title': citation_title}
-elif (bool(citation_title) == False):
-    title_dict_file = {'title': NOT_AVAILABLE}
-for key, value in title_dict_file.items():
-    if key in dict_file:
-        dict_file[key].extend(value)
-    else:
-        dict_file[key] = value
-
-######
-if (bool(citation_year) and citation_year != NOT_AVAILABLE):
-    for i in range(len(citation_year)):
-
-        year_dict_file = {'date-released': citation_year + '-01-01'}
-elif (bool(citation_year) == False):
-    year_dict_file = {'date-released': NOT_AVAILABLE}
-
-for key, value in year_dict_file.items():
-    if key in dict_file:
-        dict_file[key].extend(value)
-    else:
-        dict_file[key] = value
-
-######
-if (bool(citation_url) and citation_url != NOT_AVAILABLE):
-    for i in range(len(citation_url)):
-        citation_url = ''.join(map(str, citation_url))
-        url_dict_file = {'url': citation_url}
-elif(bool(citation_url) == False):
-        url_dict_file = {'url': NOT_AVAILABLE}
-for key, value in url_dict_file.items():
-        if key in dict_file:
-            dict_file[key].extend(value)
-        else:
-            dict_file[key] = value
-
-######
-if (bool(citation_doi) and citation_doi != NOT_AVAILABLE):
-    for i in range(len(citation_doi)):
-        citation_doi = ''.join(map(str, citation_doi))
-        doi_dict_file = {'doi': citation_doi}
-elif(bool(citation_doi) == False):
-        doi_dict_file = {'doi': NOT_AVAILABLE}
-for key, value in doi_dict_file.items():
-        if key in dict_file:
-            dict_file[key].extend(value)
-        else:
-            dict_file[key] = value
-
-######
-if (bool(citation_publisher) and citation_publisher != NOT_AVAILABLE):
-    for i in range(len(citation_publisher)):
-        publisher_dict_file = {'references': [
-            {'type': 'book', 'publisher': citation_publisher}]}
-
-elif(bool(citation_publisher) == False):
-        publisher_dict_file = {'references': [
-            {'type': 'book', 'publisher': NOT_AVAILABLE}]}
-for key, value in publisher_dict_file.items():
-        if key in dict_file:
-            dict_file[key].extend(value)
-        else:
-            dict_file[key] = value
-
-######
-if (bool(citation_journal) and citation_journal != NOT_AVAILABLE):
-    for i in range(len(citation_journal)):
-        citation_journal = ''.join(map(str, citation_journal))
-        journal_dict_file = {'references': [
-            {'type': 'article', 'journal': citation_journal}]}
-elif (bool(citation_journal) == False):
-        journal_dict_file = {'references': [
-            {'type': 'article', 'journal': 'NOT_AVAILABLE'}]}
-
-for key, value in journal_dict_file.items():
-        if key in dict_file:
-            dict_file[key].extend(value)
-        else:
-            dict_file[key] = value
-
-
-print('\n')
-print(dict_file)
-with open(r'./Citation-Project/CITATION.cff', 'w') as file:
-    documents = yaml.dump(dict_file, file, sort_keys=False)
 
 
 #########################  PUSH COMMITS and PULL REQUEST  ##########################
@@ -337,11 +207,11 @@ with open(r'./Citation-Project/CITATION.cff', 'w') as file:
 
 
 # create_pull_request(
-#     "Citation-Project", # project_name
+#     "Simão Sá", # owner_name
 #     repo_name, # repo_name
 #     "My pull request title", # title
 #     "My pull request description", # description
 #     branch_name, # head_branch
 #     "main", # base_branch
-#     "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", # git_token
+#     "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", # git_token
 # )
