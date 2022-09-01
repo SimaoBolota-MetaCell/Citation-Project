@@ -1,19 +1,12 @@
 """
-This file contains python functions for automatically retreiving DOI metadata
-and creating bibtex references. `get_bibtex_entry(doi)` creates a bibtex entry
-for a DOI. It fixes a Data Cite author name parsing issue. Short DOIs are used
-for bibtex citation keys.
-Created by Daniel Himmelstein and released under CC0 1.0. 
+Created using software by Daniel Himmelstein and released under CC0 1.0. 
 """
 
 import urllib.request
 from htmlScraper import *
 import re
-
 import requests
-import bibtexparser
-from bibtexparser.bparser import BibTexParser
-from bibtexparser.bibdatabase import BibDatabase
+
 
 
 def shorten(doi, cache={}, verbose=False):
@@ -55,24 +48,22 @@ def get_bibtext(doi, cache={}):
 
 
 def get_citation_from_doi(link):
-    soup = get_html(link )
-    bibtex_pattern = '(?<=@)(.*?)(?=\}\s*\})'
+    
+    BIBTEX_PATTERN = '(?<=@)(.*?)(?=\}\s*\})'
+    FULL_DOI_PATERN = '(10.(\d)+/([^(\s\>\"\<)])+)'
+    DOI_IN_HTML_PATTERN = '(10[.][0-9]{4,}[^\s"/<>]*/[^\s"<>]+)(?=\])'
 
+
+    soup = get_html(link )
     paragraphs = soup.find_all("p", {'dir': 'auto'})
     paragraphs = str(paragraphs)
 
     lists = soup.find_all("li")
     lists = str(lists)
 
-    FULL_DOI_PATERN = '(10.(\d)+/([^(\s\>\"\<)])+)'
-
-    DOI_IN_HTML_PATTERN = '(10[.][0-9]{4,}[^\s"/<>]*/[^\s"<>]+)(?=\])'
-
-
     p_text_w_citation = re.findall(FULL_DOI_PATERN, paragraphs, flags=re.DOTALL)
     l_text_w_citation = re.findall(FULL_DOI_PATERN, lists, flags=re.DOTALL)
 
-    # print(bool(p_text_w_citation))
     if(bool(p_text_w_citation)):
             paragraphs = strip_tags(paragraphs)
             citation_doi = re.findall(DOI_IN_HTML_PATTERN, paragraphs, flags=re.DOTALL)
@@ -89,10 +80,8 @@ def get_citation_from_doi(link):
     else:
         bibtext_text = False
     
-    # print(bool(bibtext_text))
-
     if(bool(bibtext_text)):
-        all_bibtex_citations = re.findall(bibtex_pattern, bibtext_text, flags=re.DOTALL)
+        all_bibtex_citations = re.findall(BIBTEX_PATTERN, bibtext_text, flags=re.DOTALL)
         return all_bibtex_citations
 
 

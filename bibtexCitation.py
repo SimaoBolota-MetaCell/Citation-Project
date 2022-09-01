@@ -1,11 +1,14 @@
-
 import re
 from htmlScraper import *
 
-
-
+BIBTEX_AUTHORS_PATTERN = '(?<=author\\s=\\s\{)(.*?)(?=\},)'
+BIBTEX_INDIVIDUAL_AUTHOR_PATTERN = "(?:[A-Z][A-Za-z'`-]+,)" + "\\s[A-Z][A-Za-z'`-]+"
+BIBTEX_FAMILY_NAME_PATTERN = "(?:[A-Z][A-Za-z'`-]+,)"
+BIBTEX_GIVEN_NAMES_PATTERN = "(,\\s[A-Z][A-Za-z'`-]+)"
 
 def get_bibtex_citations(link):
+
+    BIBTEX_PATTERN = '(?<=@)(.*?)(?=\}\s*\})'
 
     soup = get_html(link )
     snippets = soup.find_all("div", {
@@ -20,10 +23,7 @@ def get_bibtex_citations(link):
     BibTex_text = BibTex_text.replace("{\\'a}", "á")
     BibTex_text = re.sub(' +', ' ', BibTex_text)
 
-   
-    bibtex_pattern = '(?<=@)(.*?)(?=\}\s*\})'
-
-    all_bibtex_citations = re.findall(bibtex_pattern, BibTex_text, flags=re.DOTALL)
+    all_bibtex_citations = re.findall(BIBTEX_PATTERN, BibTex_text, flags=re.DOTALL)
 
     return all_bibtex_citations
 
@@ -32,25 +32,26 @@ def get_bibtex_citations(link):
 def get_bibtex_family_names(individual_citation):
     
     author = re.findall(
-            '(?<=author\\s=\\s\{)(.*?)(?=\},)', individual_citation, flags=re.DOTALL)
+            BIBTEX_AUTHORS_PATTERN, individual_citation, flags=re.DOTALL)
     if author:
            author_string = ' '.join(map(str, author))
-           individual_author = re.findall("(?:[A-Z][A-Za-z'`-]+,)" + "\\s[A-Z][A-Za-z'`-]+" , author_string, flags=re.DOTALL)
+           individual_author = re.findall(BIBTEX_INDIVIDUAL_AUTHOR_PATTERN , author_string, flags=re.DOTALL)
            individual_author_string = ' '.join(map(str, individual_author))
 
-           family_names = re.findall("(?:[A-Z][A-Za-z'`-]+,)" , individual_author_string, flags=re.DOTALL)
+           family_names = re.findall(BIBTEX_FAMILY_NAME_PATTERN , individual_author_string, flags=re.DOTALL)
            family_names = [w.replace(',', '') for w in family_names]
            return family_names 
 
 def get_bibtex_given_names(individual_citation):
     author = re.findall(
-            '(?<=author\\s=\\s\{)(.*?)(?=\},)', individual_citation, flags=re.DOTALL)
+            BIBTEX_AUTHORS_PATTERN, individual_citation, flags=re.DOTALL)
     if author:
            author_string = ' '.join(map(str, author))
-           individual_author = re.findall("(?:[A-Z][A-Za-z'`-]+,)" + "\\s[A-Z][A-Za-z'`-]+" , author_string, flags=re.DOTALL)
+           individual_author = re.findall(BIBTEX_INDIVIDUAL_AUTHOR_PATTERN , author_string, flags=re.DOTALL)
            individual_author_string = ' '.join(map(str, individual_author))
 
-           given_names =re.findall("(,\\s[A-Z][A-Za-z'`-]+)" , individual_author_string, flags=re.DOTALL)
+           
+           given_names =re.findall(BIBTEX_GIVEN_NAMES_PATTERN , individual_author_string, flags=re.DOTALL)
            given_names = [w.replace(', ', '') for w in given_names]
 
            return given_names
