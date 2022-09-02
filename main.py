@@ -5,6 +5,7 @@ from bibtexCitation import *
 from apaCitation import *
 from bibtex_from_doi import *
 from create_dict import *
+from pull_request import *
 import yaml
 import git
 import json
@@ -12,9 +13,9 @@ import warnings
 
 
 # README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/onlyDOI.md'
-# README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/APA.md'
+README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/APA.md'
 # README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/bibtextandAPA.md'
-README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/emptyreadme.md'
+# README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/emptyreadme.md'
 
 
 citation_title = {}
@@ -35,6 +36,7 @@ GIT_FAMILY_NAMES_PATTERN = '(?<=Author:\\s)(.*?)(?=\\s)'
 
 #########################  CREATE BRANCH  ##########################
 
+import git
 
 repo = git.Repo(
     '/Users/simaosa/Desktop/MetaCell/Projects/CZI/Citation project/Citation-Project')
@@ -46,10 +48,14 @@ repo_name = repo.remotes.origin.url.split('.git')[0].split('/')[-1]
 
 git_author = repo.git.show("-s", "--format=Author: %an <%ae>")
 
+git_author_name = re.findall(
+        GIT_FAMILY_NAMES_PATTERN, git_author, flags=re.DOTALL)
+git_author_name = ''.join(map(str, git_author_name))
 
-# branch_name = 'TestBranch-1Sep2022x1'
-# new_branch = repo.create_head(branch_name, origin.refs.main) 
-# new_branch.checkout()
+
+branch_name = '2sep_final2'
+new_branch = repo.create_head(branch_name, origin.refs.main) 
+new_branch.checkout()
 
 #########################  BIBTEX CITATION  ##########################
 
@@ -176,42 +182,33 @@ else:
 #########################  PUSH COMMITS and PULL REQUEST  ##########################
 
 
-# repo.index.add('CITATION.cff')
-# repo.index.commit("BibTex Citation Added")
-# repo.git.push("--set-upstream", origin, repo.head.ref)
+repo.index.add('CITATION.cff')
+repo.index.commit("BibTex Citation Added")
+repo.git.push("--set-upstream", origin, repo.head.ref)
 
+pull_request_description = f"""
+Hello {git_author_name},
 
-# def create_pull_request(project_name, repo_name, title, description, head_branch, base_branch, git_token):
-#     """Creates the pull request for the head_branch against the base_branch"""
-#     git_pulls_api = "https://api.github.com/repos/{0}/{1}/pulls".format(
-#         project_name,
-#         repo_name)
-#     headers = {
-#         "Authorization": "token {0}".format(git_token),
-#         "Content-Type": "application/vnd.github+json"}
+To help you adopt the recommended citation format for Napari plugins, we developed a tool that automatically generates a .CFF file containing the information about your plug in. This is how it works:
+- Our citation tool analyses and extracts information from your README.md file;
+- It prepares a draft of the CITATION.CFF and creates a pull request
+- All you have to do is to review the draft of the CITATION.CFF and edit it or approve it!
+- Accept the PR and merge it, your CITATION.CFF file will now meet the Napari plugin citation standards
 
-#     payload = {
-#         "title": title,
-#         "body": description,
-#         "head": head_branch,
-#         "base": base_branch,
-#     }
+The .CFF is a plain text file with human- and machine-readable citation information for software and datasets. 
 
-#     r = requests.post(
-#         git_pulls_api,
-#         headers=headers,
-#         data=json.dumps(payload))
+Notes:
+The CITATION.CFF file naming needs to be as it is, otherwise it won’t be recognized.
+Some more information regarding .CFF can be found here https://citation-file-format.github.io/ 
 
-#     if not r.ok:
-#         print("Request Failed: {0}".format(r.text))
+"""
 
-
-# create_pull_request(
-#     "Simão Sá", # owner_name
-#     repo_name, # repo_name
-#     "My pull request title", # title
-#     "My pull request description", # description
-#     branch_name, # head_branch
-#     "main", # base_branch
-#     "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", # git_token
-# )
+create_pull_request(
+    "SimaoBolota-MetaCell", # owner_name
+    repo_name, # repo_name
+    "Adding a CITATION.CFF", # title
+    pull_request_description, # description
+    branch_name, # head_branch
+    "main", # base_branch
+    "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", # git_token
+)
