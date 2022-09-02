@@ -5,6 +5,15 @@ BIBTEX_AUTHORS_PATTERN = '(?<=author\\s=\\s\{)(.*?)(?=\},)'
 BIBTEX_INDIVIDUAL_AUTHOR_PATTERN = "(?:[A-Z][A-Za-z'`-]+,)" + "\\s[A-Z][A-Za-z'`-]+"
 BIBTEX_FAMILY_NAME_PATTERN = "(?:[A-Z][A-Za-z'`-]+,)"
 BIBTEX_GIVEN_NAMES_PATTERN = "(,\\s[A-Z][A-Za-z'`-]+)"
+BIBTEX_YEAR_NUM_PATTERN = '(?<=year\\s=\\s\{)(.*?)(?=\},)'
+BIBTEX_YEAR_PATTERN = '(?<=year\\s=\\s)(.*?)(?=,)'
+BIBTEX_TITLE_PATTERN = '(?<=title\\s=\\s\{)(.*?)(?=\},)'
+BIBTEX_PUBLISHER_PATTERN = '(?<=publisher\\s=\\s\{)(.*?)(?=\},)'
+BIBTEX_DOI_PATTERN = '(?<=doi\\s=\\s\{)(.*?)(?=\},)'
+BIBTEX_URL_PATTERN = '(?<=URL\\s=\\s\{)(.*?)(?=\},)'
+BIBTEX_url_PATTERN = '(?<=url\\s=\\s\{)(.*?)(?=\},)'
+BIBTEX_JOURNAL_PATTERN = '(?<=journal\\s=\\s\{)(.*?)(?=\},)'
+
 
 def get_bibtex_citations(link):
 
@@ -58,24 +67,27 @@ def get_bibtex_given_names(individual_citation):
 
 def get_bibtex_year(individual_citation):
     year = re.findall(
-            '(?<=year\\s=\\s\{)(.*?)(?=\},)', individual_citation, flags=re.DOTALL)
+            BIBTEX_YEAR_NUM_PATTERN, individual_citation, flags=re.DOTALL)
     if(bool(year)==False):
+        
         year = re.findall(
-            '(?<=year\\s=\\s)(.*?)(?=,)', individual_citation, flags=re.DOTALL)
+            BIBTEX_YEAR_PATTERN, individual_citation, flags=re.DOTALL)
     if year:
         year = ''.join(map(str, year))
         return year
 
 def get_bibtex_title(individual_citation):
+     
      title = re.findall(
-            '(?<=title\\s=\\s\{)(.*?)(?=\},)', individual_citation, flags=re.DOTALL)
+            BIBTEX_TITLE_PATTERN, individual_citation, flags=re.DOTALL)
      
      title = ''.join(map(str, title))
      return title
 
 def get_bibtex_publisher(individual_citation):
+    
     publisher = re.findall(
-            '(?<=publisher\\s=\\s\{)(.*?)(?=\},)', individual_citation, flags=re.DOTALL)
+            BIBTEX_PUBLISHER_PATTERN, individual_citation, flags=re.DOTALL)
     if (bool(publisher)==False):
         publisher = re.findall(
             '(?<=publisher\\s=\\s\{)(.*?)(?=\{)', individual_citation, flags=re.DOTALL)
@@ -85,25 +97,28 @@ def get_bibtex_publisher(individual_citation):
 
 
 def get_bibtex_doi(individual_citation):
+     
      doi = re.findall(
-            '(?<=doi\\s=\\s\{)(.*?)(?=\},)', individual_citation, flags=re.DOTALL)
+            BIBTEX_DOI_PATTERN, individual_citation, flags=re.DOTALL)
      doi = ''.join(map(str, doi))
      return doi
 
 
 
 def get_bibtex_url(individual_citation):
+    
      url = re.findall(
-            '(?<=URL\\s=\\s\{)(.*?)(?=\},)', individual_citation, flags=re.DOTALL)
+            BIBTEX_URL_PATTERN, individual_citation, flags=re.DOTALL)
     
      if (bool(url) == False):
+         
          url = re.findall(
-            '(?<=url\\s=\\s\{)(.*?)(?=\},)', individual_citation, flags=re.DOTALL)
+            BIBTEX_url_PATTERN, individual_citation, flags=re.DOTALL)
      return url
 
 def get_bibtex_journal(individual_citation):
     journal = re.findall(
-            '(?<=journal\\s=\\s\{)(.*?)(?=\},)', individual_citation, flags=re.DOTALL)
+            BIBTEX_JOURNAL_PATTERN, individual_citation, flags=re.DOTALL)
     return journal
 
 

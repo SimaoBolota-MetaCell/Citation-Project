@@ -13,8 +13,8 @@ import warnings
 
 
 # README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/onlyDOI.md'
-README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/APA.md'
-# README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/bibtextandAPA.md'
+# README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/APA.md'
+README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/bibtextandAPA.md'
 # README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/emptyreadme.md'
 
 
@@ -53,9 +53,9 @@ git_author_name = re.findall(
 git_author_name = ''.join(map(str, git_author_name))
 
 
-branch_name = '2sep_final2'
-new_branch = repo.create_head(branch_name, origin.refs.main) 
-new_branch.checkout()
+# branch_name = '2sep_final2'
+# new_branch = repo.create_head(branch_name, origin.refs.main) 
+# new_branch.checkout()
 
 #########################  BIBTEX CITATION  ##########################
 
@@ -182,33 +182,33 @@ else:
 #########################  PUSH COMMITS and PULL REQUEST  ##########################
 
 
-repo.index.add('CITATION.cff')
-repo.index.commit("BibTex Citation Added")
-repo.git.push("--set-upstream", origin, repo.head.ref)
+# repo.index.add('CITATION.cff')
+# repo.index.commit("BibTex Citation Added")
+# repo.git.push("--set-upstream", origin, repo.head.ref)
 
-pull_request_description = f"""
-Hello {git_author_name},
+# pull_request_description = f"""
+# Hello {git_author_name},
 
-To help you adopt the recommended citation format for Napari plugins, we developed a tool that automatically generates a .CFF file containing the information about your plug in. This is how it works:
-- Our citation tool analyses and extracts information from your README.md file;
-- It prepares a draft of the CITATION.CFF and creates a pull request
-- All you have to do is to review the draft of the CITATION.CFF and edit it or approve it!
-- Accept the PR and merge it, your CITATION.CFF file will now meet the Napari plugin citation standards
+# To help you adopt the recommended citation format for Napari plugins, we developed a tool that automatically generates a .CFF file containing the information about your plug in. This is how it works:
+# - Our citation tool analyses and extracts information from your README.md file;
+# - It prepares a draft of the CITATION.CFF and creates a pull request
+# - All you have to do is to review the draft of the CITATION.CFF and edit it or approve it!
+# - Accept the PR and merge it, your CITATION.CFF file will now meet the Napari plugin citation standards
 
-The .CFF is a plain text file with human- and machine-readable citation information for software and datasets. 
+# The .CFF is a plain text file with human- and machine-readable citation information for software and datasets. 
 
-Notes:
-The CITATION.CFF file naming needs to be as it is, otherwise it won’t be recognized.
-Some more information regarding .CFF can be found here https://citation-file-format.github.io/ 
+# Notes:
+# The CITATION.CFF file naming needs to be as it is, otherwise it won’t be recognized.
+# Some more information regarding .CFF can be found here https://citation-file-format.github.io/ 
 
-"""
+# """
 
-create_pull_request(
-    "SimaoBolota-MetaCell", # owner_name
-    repo_name, # repo_name
-    "Adding a CITATION.CFF", # title
-    pull_request_description, # description
-    branch_name, # head_branch
-    "main", # base_branch
-    "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", # git_token
-)
+# create_pull_request(
+#     "SimaoBolota-MetaCell", # owner_name
+#     repo_name, # repo_name
+#     "Adding a CITATION.CFF", # title
+#     pull_request_description, # description
+#     branch_name, # head_branch
+#     "main", # base_branch
+#     "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", # git_token
+# )

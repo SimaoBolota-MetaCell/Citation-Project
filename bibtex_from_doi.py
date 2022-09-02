@@ -7,6 +7,9 @@ from htmlScraper import *
 import re
 import requests
 
+BIBTEX_PATTERN = '(?<=@)(.*?)(?=\}\s*\})'
+FULL_DOI_PATERN = '(10.(\d)+/([^(\s\>\"\<)])+)'
+DOI_IN_HTML_PATTERN = '(10[.][0-9]{4,}[^\s"/<>]*/[^\s"<>]+)(?=\])'
 
 
 def shorten(doi, cache={}, verbose=False):
@@ -49,11 +52,6 @@ def get_bibtext(doi, cache={}):
 
 def get_citation_from_doi(link):
     
-    BIBTEX_PATTERN = '(?<=@)(.*?)(?=\}\s*\})'
-    FULL_DOI_PATERN = '(10.(\d)+/([^(\s\>\"\<)])+)'
-    DOI_IN_HTML_PATTERN = '(10[.][0-9]{4,}[^\s"/<>]*/[^\s"<>]+)(?=\])'
-
-
     soup = get_html(link )
     paragraphs = soup.find_all("p", {'dir': 'auto'})
     paragraphs = str(paragraphs)
