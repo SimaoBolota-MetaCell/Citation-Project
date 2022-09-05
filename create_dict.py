@@ -6,9 +6,6 @@ NOT_AVAILABLE = ['Not Available']
 
 
 
-
-
-
 def add_to_dict(family_names, given_names, title, year, url, doi, publisher, journal ):
 
 
