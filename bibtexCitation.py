@@ -1,23 +1,11 @@
 import re
 from htmlScraper import *
-
-BIBTEX_AUTHORS_PATTERN = '(?<=author\\s=\\s\{)(.*?)(?=\},)'
-BIBTEX_INDIVIDUAL_AUTHOR_PATTERN = "(?:[A-Z][A-Za-z'`-]+,)" + "\\s[A-Z][A-Za-z'`-]+"
-BIBTEX_FAMILY_NAME_PATTERN = "(?:[A-Z][A-Za-z'`-]+,)"
-BIBTEX_GIVEN_NAMES_PATTERN = "(,\\s[A-Z][A-Za-z'`-]+)"
-BIBTEX_YEAR_NUM_PATTERN = '(?<=year\\s=\\s\{)(.*?)(?=\},)'
-BIBTEX_YEAR_PATTERN = '(?<=year\\s=\\s)(.*?)(?=,)'
-BIBTEX_TITLE_PATTERN = '(?<=title\\s=\\s\{)(.*?)(?=\},)'
-BIBTEX_PUBLISHER_PATTERN = '(?<=publisher\\s=\\s\{)(.*?)(?=\},)'
-BIBTEX_DOI_PATTERN = '(?<=doi\\s=\\s\{)(.*?)(?=\},)'
-BIBTEX_URL_PATTERN = '(?<=URL\\s=\\s\{)(.*?)(?=\},)'
-BIBTEX_url_PATTERN = '(?<=url\\s=\\s\{)(.*?)(?=\},)'
-BIBTEX_JOURNAL_PATTERN = '(?<=journal\\s=\\s\{)(.*?)(?=\},)'
+from patterns import *
 
 
 def get_bibtex_citations(link):
 
-    BIBTEX_PATTERN = '(?<=@)(.*?)(?=\}\s*\})'
+    
 
     soup = get_html(link )
     snippets = soup.find_all("div", {
@@ -35,7 +23,6 @@ def get_bibtex_citations(link):
     all_bibtex_citations = re.findall(BIBTEX_PATTERN, BibTex_text, flags=re.DOTALL)
 
     return all_bibtex_citations
-
 
 
 def get_bibtex_family_names(individual_citation):

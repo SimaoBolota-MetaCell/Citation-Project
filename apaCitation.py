@@ -1,14 +1,6 @@
 from htmlScraper import *
 import re
-
-APA_DOI_PATTERN = '(?:doi.org/)(.*?)(?=\,)'
-APA_AUTHORS_PATTERN = "(?:[A-Z][A-Za-z'`-]+)" + ", " + "(?:\w\.)"
-APA_YEAR_NUM_PATTERN = '\(([0-9]{4})\)'
-APA_FULL_DOI_PATTERN = '(10.(\d)+/([^(\s\>\"\<)])+)'
-APA_FAMILY_NAME_PATTERN = "(?:[A-Z][A-Za-z'`-]+,)"
-APA_GIVEN_NAME_PATTERN = "(\,\\s[A-Z]\.)"
-APA_TITLE_PATTERN = '(?:[0-9]{4}\.\\s)([A-Z].*?)(?=\.)'
-APA_YEAR_PATTERN = '(\\s[0-9]{4}\.)'
+from patterns import *
 
 
 

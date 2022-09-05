@@ -10,13 +10,17 @@ import yaml
 import git
 import json
 import warnings
+from patterns import *
+import sys
+from ruamel.yaml import *
 
 
-# README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/onlyDOI.md'
+README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/onlyDOI.md'
 # README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/APA.md'
-README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/bibtextandAPA.md'
+# README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/bibtextandAPA.md'
 # README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/emptyreadme.md'
 
+######################### INITIALIZATIONS #########################
 
 citation_title = {}
 citation_publisher = {}
@@ -30,8 +34,6 @@ citation_doi = {}
 isBibtex = bool(get_bibtex_citations(README_LINK))
 isDOI = bool(get_citation_from_doi(README_LINK))
 
-
-GIT_FAMILY_NAMES_PATTERN = '(?<=Author:\\s)(.*?)(?=\\s)'
 
 
 #########################  CREATE BRANCH  ##########################
@@ -174,7 +176,10 @@ else:
     print(filedict)
     print('\n')
     with open(r'./Citation-Project/CITATION.cff', 'w') as file:
+           
             documents = yaml.dump(filedict, file, sort_keys=False)
+            
+
 
 
 

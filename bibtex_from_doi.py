@@ -6,10 +6,7 @@ import urllib.request
 from htmlScraper import *
 import re
 import requests
-
-BIBTEX_PATTERN = '(?<=@)(.*?)(?=\}\s*\})'
-FULL_DOI_PATERN = '(10.(\d)+/([^(\s\>\"\<)])+)'
-DOI_IN_HTML_PATTERN = '(10[.][0-9]{4,}[^\s"/<>]*/[^\s"<>]+)(?=\])'
+from patterns import *
 
 
 def shorten(doi, cache={}, verbose=False):
