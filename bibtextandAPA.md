@@ -4,9 +4,9 @@
 ```bibtex
 @software{christina_bukas_2022_6457904,
   author       = {Christina Bukas},
-  title        = {{HelmholtzAI-Consultants-Munich/napari-organoid- 
+  title        = {HelmholtzAI-Consultants-Munich/napari-organoid- 
                    counter: first release of napari plugin for lung
-                   organoid counting}},
+                   organoid counting},
   month        = apr,
   year         = 2022,
   publisher    = {Zenodo},
