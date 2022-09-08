@@ -15,24 +15,12 @@ import sys
 from ruamel.yaml import *
 
 
-README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/onlyDOI.md'
+# # README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/onlyDOI.md'
 # README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/APA.md'
-# README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/bibtextandAPA.md'
-# README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/emptyreadme.md'
+# # README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/bibtextandAPA.md'
+# # README_LINK = 'https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/emptyreadme.md'
 
-######################### INITIALIZATIONS #########################
 
-citation_title = {}
-citation_publisher = {}
-citation_url = {}
-citation_family_names = {}
-citation_give_names = {}
-citation_year = {}
-citation_journal = {}
-citation_doi = {}
-
-isBibtex = bool(get_bibtex_citations(README_LINK))
-isDOI = bool(get_citation_from_doi(README_LINK))
 
 
 
@@ -40,13 +28,19 @@ isDOI = bool(get_citation_from_doi(README_LINK))
 
 import git
 
-repo = git.Repo(
-    '/Users/simaosa/Desktop/MetaCell/Projects/CZI/Citation project/Citation-Project')
+repo = git.Repo('./Citation-Project')
+
 origin = repo.remote("origin")
+
 assert origin.exists()
 origin.fetch()
 
 repo_name = repo.remotes.origin.url.split('.git')[0].split('/')[-1]
+
+git_readme_link = repo.remotes.origin.url.split('.git')[0]
+git_readme_link = git_readme_link + '/blob/main/README.md'
+
+README_LINK = git_readme_link
 
 git_author = repo.git.show("-s", "--format=Author: %an <%ae>")
 
@@ -55,9 +49,29 @@ git_author_name = re.findall(
 git_author_name = ''.join(map(str, git_author_name))
 
 
+git_token = input("Enter the authentication git token: ")
+
+print(repo)
+
 # branch_name = '2sep_final2'
 # new_branch = repo.create_head(branch_name, origin.refs.main) 
 # new_branch.checkout()
+
+
+
+######################### INITIALIZATIONS #########################
+
+citation_title = {}
+citation_publisher = {}
+citation_url = {}
+citation_family_names = {}
+citation_given_names = {}
+citation_year = {}
+citation_journal = {}
+citation_doi = {}
+
+isBibtex = bool(get_bibtex_citations(README_LINK))
+isDOI = bool(get_citation_from_doi(README_LINK))
 
 #########################  BIBTEX CITATION  ##########################
 
@@ -96,27 +110,22 @@ elif isBibtex==False and bool(get_apa_citations(README_LINK)):
     
     APA_text, all_apa_authors, all_apa_citations = get_apa_citations(
         README_LINK)
-
-    if (bool(all_apa_authors)):
+    
+    if (bool(all_apa_citations)):
         print('APA Citation')
         APA_text, all_apa_authors, all_apa_citations = get_apa_citations(
             README_LINK)
 
         for individual_citation in all_apa_citations:
-            print(individual_citation)
-
             individual_citation = ''.join(map(str, individual_citation))
-            individual_citation = re.sub('\(', '', individual_citation)
             individual_citation = all_apa_authors + ' ' + individual_citation
-
             citation_family_names = get_apa_family_names(all_apa_authors)
             citation_given_names = get_apa_given_names(all_apa_authors)
             citation_year = get_apa_year(individual_citation)
-            citation_year = citation_year + '-01-01'
+            citation_year = citation_year
             citation_title = get_apa_title(individual_citation)
             citation_journal = get_apa_journal(citation_title, APA_text)
             citation_doi = get_apa_doi(APA_text)
-
 
         filedict = add_to_dict(citation_family_names, citation_given_names, citation_title, citation_year, citation_url, citation_doi, citation_publisher, citation_journal )
 
@@ -175,11 +184,17 @@ else:
     print('\n')
     print(filedict)
     print('\n')
-    with open(r'./Citation-Project/CITATION.cff', 'w') as file:
-           
-            documents = yaml.dump(filedict, file, sort_keys=False)
-            
 
+    with open(r'./Citation-Project/CITATION.cff', 'w') as file:
+            documents = yaml.dump(filedict, file)
+    
+
+    
+# from yaml.loader import SafeLoader
+            
+# with open('./Citation-Project/CITATION.cff') as f:
+#     data = yaml.load(f, Loader = SafeLoader)
+#     print(type(data))
 
 
 
@@ -215,5 +230,5 @@ else:
 #     pull_request_description, # description
 #     branch_name, # head_branch
 #     "main", # base_branch
-#     "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", # git_token
+#     "git_token", # git_token
 # )
