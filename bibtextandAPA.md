@@ -1,7 +1,7 @@
 
 
 
-```bibtex
+```
 @software{christina_bukas_2022_6457904,
   author       = {Christina Bukas},
   title        = {HelmholtzAI-Consultants-Munich/napari-organoid- 
