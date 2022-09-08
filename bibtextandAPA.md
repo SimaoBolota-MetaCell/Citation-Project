@@ -2,17 +2,17 @@
 
 
 ```bibtex
-@InProceedings{10.1007/978-3-030-66415-2_30,
-author="Lalit, Manan and Handberg-Thorsager, Mette and Hsieh, Yu-Wen and Jug, Florian and Tomancak, Pavel",
-editor="Bartoli, Adrien
-and Fusiello, Andrea",
-title="Registration of Multi-modal Volumetric Images by Establishing Cell Correspondence",
-booktitle="Computer Vision -- ECCV 2020 Workshops",
-year="2020",
-publisher="Springer International Publishing",
-address="Cham",
-pages="458--473",
-isbn="978-3-030-66415-2"
+@software{christina_bukas_2022_6457904,
+  author       = {Christina Bukas},
+  title        = {{HelmholtzAI-Consultants-Munich/napari-organoid- 
+                   counter: first release of napari plugin for lung
+                   organoid counting}},
+  month        = apr,
+  year         = 2022,
+  publisher    = {Zenodo},
+  version      = {v0.1.0-beta},
+  doi          = {10.5281/zenodo.6457904},
+  url          = {https://doi.org/10.5281/zenodo.6457904}
 }
 ```
 
