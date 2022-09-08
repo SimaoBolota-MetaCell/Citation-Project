@@ -8,21 +8,37 @@ def get_bibtex_citations(link):
     
 
     soup = get_html(link )
-    snippets = soup.find_all("div", {
+
+    bibtex_snippets = soup.find_all("div", {
                          'class': 'highlight highlight-text-bibtex notranslate position-relative overflow-auto'})
-    snippets = str(snippets)
+    bibtex_snippets = str(bibtex_snippets)
 
-    BibTex_text = strip_tags(snippets)
-    BibTex_text = BibTex_text.replace("\xa0", " ")
-    BibTex_text = BibTex_text.replace("=", " = ")
-    BibTex_text = BibTex_text.replace("]", " }")
-    BibTex_text = BibTex_text.replace("{\\~a}", "ã")
-    BibTex_text = BibTex_text.replace("{\\'a}", "á")
-    BibTex_text = re.sub(' +', ' ', BibTex_text)
+    regular_snippets =soup.find_all("div",{'class':"snippet-clipboard-content notranslate position-relative overflow-auto"})
+    regular_snippets = str(regular_snippets)
 
-    all_bibtex_citations = re.findall(BIBTEX_PATTERN, BibTex_text, flags=re.DOTALL)
+    bs_text_w_citation = re.findall(SMALLER_DOI_PATTERN, bibtex_snippets, flags=re.DOTALL)
+    rs_text_w_citation = re.findall(SMALLER_DOI_PATTERN, regular_snippets, flags=re.DOTALL)
 
-    return all_bibtex_citations
+
+    if(bool(bs_text_w_citation)):
+        BibTex_text = strip_tags(bibtex_snippets)
+    elif(bool(rs_text_w_citation)):
+        BibTex_text = strip_tags(regular_snippets) 
+    else:
+        BibTex_text = False
+
+    if(bool(BibTex_text)):
+        BibTex_text = BibTex_text.replace("\xa0", " ")
+        BibTex_text = BibTex_text.replace("=", " = ")
+        BibTex_text = BibTex_text.replace("]", " }")
+        BibTex_text = BibTex_text.replace("{\\~a}", "ã")
+        BibTex_text = BibTex_text.replace("\n", " ")
+        BibTex_text = BibTex_text.replace("{\\'a}", "á")
+        BibTex_text = re.sub(' +', ' ', BibTex_text)
+        # print(BibTex_text)
+        all_bibtex_citations = re.findall(BIBTEX_PATTERN, BibTex_text, flags=re.DOTALL)
+        # print(all_bibtex_citations)
+        return all_bibtex_citations
 
 
 def get_bibtex_family_names(individual_citation):
@@ -36,6 +52,7 @@ def get_bibtex_family_names(individual_citation):
 
            family_names = re.findall(BIBTEX_FAMILY_NAME_PATTERN , individual_author_string, flags=re.DOTALL)
            family_names = [w.replace(',', '') for w in family_names]
+           print(family_names)
            return family_names 
 
 def get_bibtex_given_names(individual_citation):
