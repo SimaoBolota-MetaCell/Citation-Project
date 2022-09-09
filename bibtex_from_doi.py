@@ -81,3 +81,5 @@ def get_citation_from_doi(link):
 
 
 
+
+print(get_citation_from_doi('https://github.com/SimaoBolota-MetaCell/Citation-Project/blob/main/README.md'))

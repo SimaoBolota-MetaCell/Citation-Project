@@ -1,33 +1,12 @@
 cff-version: 1.2.0
 message: If you use this plugin, please cite it using these metadata
-title: Accurate determination of marker location within whole-brain microscopy images
-doi: 10.1038/s41598-021-04676-9
+title: '{Napari-ccp4map'
 authors:
-- family-names: Tyson
-  given-names: A.
-- family-names: Fort
-  given-names: M.
-- family-names: Rousseau
-  given-names: C.
-- family-names: Cossell
-  given-names: L.
-- family-names: Tsitoura
-  given-names: C.
-- family-names: Lenzi
-  given-names: S.
-- family-names: Obenhaus
-  given-names: H.
-- family-names: Claudi
-  given-names: F.
-- family-names: Branco
-  given-names: T.
-- family-names: Margrie
-  given-names: T.
-date-released: 2022-01-01-01-01
-url:
-- Not Available
+- family-names: Not Available
+  given-names: Not Available
+date-released: '2021-01-01'
+url: https://github.com/biberger/napari-ccp4map
 references:
 - type: article
-  title: Accurate determination of marker location within whole-brain microscopy images
-  journal: ' Scientific Reports, 12, 867 '
-  doi: 10.1038/s41598-021-04676-9
+  title: '{Napari-ccp4map'
+  doi: 10.5281/zenodo.3555620
