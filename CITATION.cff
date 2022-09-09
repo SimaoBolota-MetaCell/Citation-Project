@@ -1,12 +1,7 @@
 cff-version: 1.2.0
 message: If you use this plugin, please cite it using these metadata
-title: '{Napari-ccp4map'
-authors:
-- family-names: Not Available
-  given-names: Not Available
-date-released: '2021-01-01'
-url: https://github.com/biberger/napari-ccp4map
 references:
+- type: book
+  publisher: Cold Spring Harbor Laboratory
+  doi: 10.1101/2022.03.17.484806
 - type: article
-  title: '{Napari-ccp4map'
-  doi: 10.5281/zenodo.3555620
