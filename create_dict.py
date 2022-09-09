@@ -21,19 +21,7 @@ def add_to_dict(family_names, given_names, title, year, url, doi, publisher, jou
             dict_file[key].extend(value)
         else:
             dict_file[key] = value
-
-     ######
-    if (bool(doi) and doi != NOT_AVAILABLE):
-
-        doi = ''.join(map(str, doi))
-        doi_dict_file = {'doi': doi}
-    elif (bool(doi) == False):
-        doi_dict_file = {'doi': NOT_AVAILABLE}
-    for key, value in doi_dict_file.items():
-        if key in dict_file:
-            dict_file[key].extend(value)
-        else:
-            dict_file[key] = value
+ 
 
     ######
     if (bool(family_names) and family_names != NOT_AVAILABLE):
@@ -89,29 +77,19 @@ def add_to_dict(family_names, given_names, title, year, url, doi, publisher, jou
     if (bool(publisher) and publisher != NOT_AVAILABLE):
 
         if (bool(doi)):
-            if (bool(title)):
 
                 publisher_dict_file = {'references': [
-                    {'type': 'book', 'title': title, 'publisher': publisher, 'doi': doi}]}
+                    {'type': 'book',  'publisher': publisher, 'doi': doi}]}
 
                 for key, value in publisher_dict_file.items():
                     if key in dict_file:
                         dict_file[key].extend(value)
                     else:
                         dict_file[key] = value
-            else:
-                publisher_dict_file = {'references': [
-                    {'type': 'book', 'title': 'Not Available', 'publisher': publisher, 'doi': doi}]}
-
-                for key, value in publisher_dict_file.items():
-                    if key in dict_file:
-                        dict_file[key].extend(value)
-                    else:
-                        dict_file[key] = value
+           
         else:
-            if (bool(title)):
                 publisher_dict_file = {'references': [
-                    {'type': 'book', 'title': title, 'publisher': publisher, 'doi': 'Not Available'}]}
+                    {'type': 'book', 'publisher': publisher, 'doi': 'Not Available'}]}
 
                 for key, value in publisher_dict_file.items():
                     if key in dict_file:
@@ -119,15 +97,7 @@ def add_to_dict(family_names, given_names, title, year, url, doi, publisher, jou
                     else:
                         dict_file[key] = value
 
-            else:
-                publisher_dict_file = {'references': [
-                    {'type': 'book', 'title': 'Not Available', 'publisher': publisher, 'doi': 'Not Available'}]}
-
-                for key, value in publisher_dict_file.items():
-                    if key in dict_file:
-                        dict_file[key].extend(value)
-                    else:
-                        dict_file[key] = value
+            
 
     ######
     if (bool(journal) and journal != NOT_AVAILABLE):
@@ -179,6 +149,21 @@ def add_to_dict(family_names, given_names, title, year, url, doi, publisher, jou
                         dict_file[key].extend(value)
                     else:
                         dict_file[key] = value
+
+    if(bool(journal)== False and bool(publisher)== False and bool(doi)== True):
+        doi = ''.join(map(str, doi))
+        doi_dict_file = {'references': [
+                    {'type': 'article',
+                    'title': title,
+                     'doi': doi}]}
+
+        for key, value in doi_dict_file.items():
+                    if key in dict_file:
+                        dict_file[key].extend(value)
+                    else:
+                        dict_file[key] = value
+
+
 
     print('\n')
     print('Citation Dict File created')
