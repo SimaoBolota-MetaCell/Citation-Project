@@ -105,6 +105,7 @@ As proposed, have the main citation referencing the software and add sub-referen
 - Test for Bibtex method
 - Test for only DOI method
 
+![image](https://user-images.githubusercontent.com/99416933/189692401-35a56d51-ae93-4225-a196-acd825453360.png)
 
 
 Asserting that the variables that hold the citation information exist and match with a specific example
