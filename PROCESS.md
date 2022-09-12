@@ -105,9 +105,16 @@ As proposed, have the main citation referencing the software and add sub-referen
 - Test for Bibtex method
 - Test for only DOI method
 
+
+
 Asserting that the variables that hold the citation information exist and match with a specific example
 &
 Creating a test dict form an example (contents for the CITATION.CFF) and compare it with that set example supposed outcome.
+
+Example:
+
+![image](https://user-images.githubusercontent.com/99416933/189691504-329190bf-8659-414d-9b0e-b38e01c4c47b.png)
+
 
 
 
