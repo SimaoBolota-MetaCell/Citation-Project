@@ -48,7 +48,17 @@ Question 1.1: Do we want to show the subcomponents if they are not available/fou
 Question 1.2: If we want to show them, and since some of the subcomponents might not be found/available (in the example, the 'None' and '[] ), should they be displayed as an empty string ' ' or as 'Not Available'?
 
 
-For when No Citation Information is found in the README.md, the .CFF is created taking in **only the GitHub Repo Author name**:
+For when No Citation Information is found in the README.md,
+- console warning
+
+![image](https://user-images.githubusercontent.com/99416933/189680046-21508a07-7d2e-443e-aa2c-e1072fcfa9a5.png)
+
+- pop up warning 
+
+![image](https://user-images.githubusercontent.com/99416933/189680547-aecfca8c-64c3-4468-a2f7-76870a5da0cf.png)
+
+
+and then the .CFF is created taking in **only the GitHub Repo Author name** as the Author:
 
 ![Screenshot at Aug 29 15-40-11](https://user-images.githubusercontent.com/99416933/187227630-8f0960d6-f12d-4d2e-9f02-cdb31ece9260.png)
 
@@ -69,13 +79,26 @@ Solution: I can put it as both when the journal variable is not empty
 
 <img width="827" alt="Screenshot_at_Aug_25_15-35-54" src="https://user-images.githubusercontent.com/99416933/187229604-ab20dc8f-0f33-4f88-8369-5510bc7a585d.png">
 
+**CFF format updated for journal/book references**:
+
+As proposed, have the main citation referencing the software and add sub-reference type article/book if the variables holding the publisher name or journal name are not empty
+
+![image](https://user-images.githubusercontent.com/99416933/189682177-4930f732-ee98-477c-92b2-b33b4f192737.png)
+
 
 
 **Git Automations**:
 
 - Create Branch (unique names)
 - Push Commit (pushes only the CITAION.CFF)
-- Pull Request (TO DO)
+- Pull Request (requires git token, requested as input when you run the code)
+
+![image](https://user-images.githubusercontent.com/99416933/189683226-da44bff1-c0a4-4a1d-868d-d15983453746.png)
+
+
+**Unit tests**:
+
+
 
 **PROCESS**:
 
