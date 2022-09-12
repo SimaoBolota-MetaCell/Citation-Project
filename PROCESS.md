@@ -93,7 +93,7 @@ As proposed, have the main citation referencing the software and add sub-referen
 - Push Commit (pushes only the CITAION.CFF)
 - Pull Request (requires git token, requested as input when you run the code)
 
-![image](https://user-images.githubusercontent.com/99416933/189683226-da44bff1-c0a4-4a1d-868d-d15983453746.png)
+![image](https://user-images.githubusercontent.com/99416933/189687633-462cedc9-fb22-4023-909c-55b674becb85.png)
 
 
 **Unit tests**:
