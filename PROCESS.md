@@ -83,7 +83,11 @@ Solution: I can put it as both when the journal variable is not empty
 
 As proposed, have the main citation referencing the software and add sub-reference type article/book if the variables holding the publisher name or journal name are not empty
 
+Another thing added was to add the doi key and value as a type article/book reference (if variable journal exists DOI is added as article, if variable publisher exists DOI is added as book, if it doesn't found any journal name or publisher name DOI is added as type article by default), so it doesn't appear in the main software citation but in the article/book sub reference
+
+
 ![image](https://user-images.githubusercontent.com/99416933/189682177-4930f732-ee98-477c-92b2-b33b4f192737.png)
+
 
 
 
@@ -125,14 +129,4 @@ Example:
 2. APA Citation
 3. DOI only Citation
 4. No Citation info
-
-
-TODO:
-
-Having the citations parsed into its subcomponents, **create the .CFF file** (PyYAML or PyCFF) storing the subcomponents into the corresponding CFF keys https://elib.dlr.de/147385/1/schema-guide.pdf.
-
-Using a GitHub plugin or integration, **create a flow to submit a Pull request of the automatically generated .CFF.** The author can then review/edit/approve the citation and eventually merge if agreed.
-This way the .CFF becomes part of the repo.
-
-This is done to ensure that we are not direcly pushing a file into someone else's repo. Giving room for the Repo owner to add more infomration or correct information if needed and to double check the output of this Citation process.
 
