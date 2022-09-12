@@ -95,8 +95,19 @@ As proposed, have the main citation referencing the software and add sub-referen
 
 ![image](https://user-images.githubusercontent.com/99416933/189687633-462cedc9-fb22-4023-909c-55b674becb85.png)
 
+<img width="1345" alt="image" src="https://user-images.githubusercontent.com/99416933/189687912-2e5ce443-853d-43f4-8d61-60483ff3da65.png">
 
-**Unit tests**:
+
+
+**Unit tests** (just run pytest):
+
+- Test for APA method
+- Test for Bibtex method
+- Test for only DOI method
+
+Asserting that the variables that hold the citation information exist and match with a specific example
+&
+Creating a test dict form an example (contents for the CITATION.CFF) and compare it with that set example supposed outcome.
 
 
 
