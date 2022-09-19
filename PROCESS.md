@@ -109,6 +109,14 @@ Which one do you think it's best?
 
 
 ----
+
+**Comments:**
+- Block comments
+
+![image](https://user-images.githubusercontent.com/99416933/191039701-b5e71aaf-87af-4cb9-ac5a-78191cb5c3b0.png)
+
+- code line comments (to do)
+
 **Git Automations**:
 
 - Create Branch (unique names)
