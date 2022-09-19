@@ -88,9 +88,27 @@ Another thing added was to add the doi key and value as a type article/book refe
 
 ![image](https://user-images.githubusercontent.com/99416933/189682177-4930f732-ee98-477c-92b2-b33b4f192737.png)
 
+----
+19 September
+
+**CFF format updated to differentiate title**:
+
+To not mix up the article title and GitHub repository title since they might differ, the main citation contemplates the GitHub Repo title while the sub-reference contains the title contained in the README.md for article/book
+
+![image](https://user-images.githubusercontent.com/99416933/191027329-4f073b9a-5880-45cc-abb3-b0c7bc959ca1.png)
+
+**CFF format updated to differentiate authors**:
+
+What I had was the main citation author reffering to the GitHub repository author/owner. It was also suggested that the GitHub Repositories contributors could be used as the main citation. This way it would capture not only the owner.
+Something of this sorts:
+
+![image](https://user-images.githubusercontent.com/99416933/191028100-079d8368-4450-4d3b-8db3-77d277a62ce6.png)
+
+Problem with this approach - the github @'s are not usually text I can separate into given and family name, so for this reason only one of them (given or family) would show up in the citation, which is not the most ideal.
+Which one do you think it's best?
 
 
-
+----
 **Git Automations**:
 
 - Create Branch (unique names)
