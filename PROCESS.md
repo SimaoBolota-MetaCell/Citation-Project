@@ -120,9 +120,14 @@ Which one do you think it's best?
 
 <img width="952" alt="Screenshot at Sep 26 10-32-25" src="https://user-images.githubusercontent.com/99416933/192243215-3923eff1-db84-4591-bb55-4ed2e9e33559.png">
 
-- In case both article and book info are available, the article is the preferred one and book remains as a sub-reference (additional reference)
+- In this case the idea would be - In case both article and book info are available, the article is the preferred one and book remains as a sub-reference (additional reference)
 
 <img width="969" alt="Screenshot at Sep 26 10-32-47" src="https://user-images.githubusercontent.com/99416933/192243287-fed893ff-f2c9-4b8b-a0b7-f9803c021a00.png">
+
+However when viewing the contents of the CFF in the github tool, it may brake it since everytime I tried It keeps loading for eternity
+<img width="600" alt="Screenshot at Sep 26 11-08-13" src="https://user-images.githubusercontent.com/99416933/192250535-e6ba7d9a-48e6-4562-b0fb-e2098bbeb5ce.png">
+
+So, to avoid this I am thinking of just removing the references section and having the prefered-citation switch between journal and book (when available). For when there is both information, article information will be preferred over the book.
 
 ----
 
