@@ -127,7 +127,10 @@ Which one do you think it's best?
 However when viewing the contents of the CFF in the github tool, it may brake it since everytime I tried It keeps loading for eternity
 <img width="600" alt="Screenshot at Sep 26 11-08-13" src="https://user-images.githubusercontent.com/99416933/192250535-e6ba7d9a-48e6-4562-b0fb-e2098bbeb5ce.png">
 
-So, to avoid this I am thinking of just removing the references section and having the prefered-citation switch between journal and book (when available). For when there is both information, article information will be preferred over the book.
+So, to avoid this I am thinking of 
+- just removing the references section and having the prefered-citation switch between journal and book (when available). For when there is both information, article information will be preferred over the book.
+- putting the preffered-citation as the one that has more information (do a count and compare between the article and book variables available)
+
 
 ----
 
