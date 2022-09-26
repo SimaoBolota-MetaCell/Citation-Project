@@ -107,6 +107,14 @@ Something of this sorts:
 Problem with this approach - the github @'s are not usually text I can separate into given and family name, so for this reason only one of them (given or family) would show up in the citation, which is not the most ideal.
 Which one do you think it's best?
 
+----
+26 September
+
+**CFF format updated to have a preferred citation**:
+
+- citation for software always present
+- preferred citation for the article or book
+- In case both article and book info are available, the article is the preferred one and book remains as a sub-reference (additional reference)
 
 ----
 
@@ -115,7 +123,10 @@ Which one do you think it's best?
 
 ![image](https://user-images.githubusercontent.com/99416933/191039701-b5e71aaf-87af-4cb9-ac5a-78191cb5c3b0.png)
 
-- code line comments (to do)
+- code line comments 
+
+![image (12)](https://user-images.githubusercontent.com/99416933/192239941-8eac9d62-0c48-42b1-8e88-5183f69250ce.png)
+
 
 **Git Automations**:
 
