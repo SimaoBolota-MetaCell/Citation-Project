@@ -112,9 +112,17 @@ Which one do you think it's best?
 
 **CFF format updated to have a preferred citation**:
 
-- citation for software always present
+- citation for software always present 
+
+<img width="967" alt="Screenshot at Sep 26 10-24-32" src="https://user-images.githubusercontent.com/99416933/192243073-121d4018-9906-4125-b776-de3e86f30cd3.png">
+
 - preferred citation for the article or book
+
+<img width="952" alt="Screenshot at Sep 26 10-32-25" src="https://user-images.githubusercontent.com/99416933/192243215-3923eff1-db84-4591-bb55-4ed2e9e33559.png">
+
 - In case both article and book info are available, the article is the preferred one and book remains as a sub-reference (additional reference)
+
+<img width="969" alt="Screenshot at Sep 26 10-32-47" src="https://user-images.githubusercontent.com/99416933/192243287-fed893ff-f2c9-4b8b-a0b7-f9803c021a00.png">
 
 ----
 
