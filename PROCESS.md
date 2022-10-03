@@ -183,3 +183,12 @@ Example:
 3. DOI only Citation
 4. No Citation info
 
+
+----
+**INTEGRATION** 3 Oct
+
+- ```napari-hub-cli create-cff-citation``` 
+
+https://user-images.githubusercontent.com/99416933/193610730-d999f3a8-1488-46df-9a10-87065deb0d35.mov
+
+
